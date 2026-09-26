@@ -1,0 +1,155 @@
+"""Cliente único y genérico hacia Gemini (texto + visión)."""
+
+import time
+from collections.abc import Callable
+from functools import lru_cache
+from typing import TypeVar
+
+from google import genai
+from google.genai import types
+
+from app.core.config import settings
+from app.core.exceptions import AINotConfiguredError, UpstreamAIError
+from app.vision.schemas import IngredientsResponse
+
+T = TypeVar("T")
+
+_RETRIES_PER_MODEL = 2
+_RETRY_DELAYS = (1.0, 3.0)
+
+
+def _is_transient_saturation(exc: Exception) -> bool:
+    """503/429 por saturación ('high demand', UNAVAILABLE, RESOURCE_EXHAUSTED, rate limit)."""
+    text = str(exc).lower()
+    markers = ("503", "429", "unavailable", "resource_exhausted", "high demand", "rate limit")
+    return any(m in text for m in markers)
+
+
+def _build_error(*attempts: Exception | None) -> UpstreamAIError:
+    seen = {str(exc)[:160] for exc in attempts if exc}
+    detail = " | ".join(seen) if seen else "sin detalles"
+    return UpstreamAIError(message=detail)
+
+
+class GeminiClient:
+    """Wrapper sobre google-genai. No expone nada del SDK al resto del código."""
+
+    def __init__(self, api_key: str | None = None, model: str | None = None) -> None:
+        self.api_key = api_key or settings.GEMINI_API_KEY
+        primary = model or settings.GEMINI_MODEL
+        self.models = [primary, *(m for m in settings.GEMINI_FALLBACK_MODELS if m != primary)]
+        if not settings.GEMINI_AI_ENABLED:
+            raise AINotConfiguredError(
+                "IA desactivada: define GEMINI_AI_ENABLED=true en backend/.env para activarla."
+            )
+        if not self.api_key:
+            raise AINotConfiguredError("GEMINI_API_KEY no está definida en backend/.env")
+        self.client = genai.Client(api_key=self.api_key)
+
+    def _with_fallback(self, caller: Callable[[str], T]) -> T:
+        """Reintenta cada modelo ante 503/429 de saturación; si se agotan, prueba el siguiente."""
+        attempts: list[Exception | None] = []
+        for model in self.models:
+            for attempt in range(_RETRIES_PER_MODEL):
+                try:
+                    return caller(model)
+                except Exception as exc:  # noqa: BLE001 - el SDK lanza excepciones variadas
+                    attempts.append(exc)
+                    if not _is_transient_saturation(exc) or attempt == _RETRIES_PER_MODEL - 1:
+                        break
+                    time.sleep(_RETRY_DELAYS[attempt])
+        raise _build_error(*attempts)
+
+    def generate_content(self, prompt: str, temperature: float = 0.7) -> str:
+        def call(model: str) -> str:
+            response = self.client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=temperature,
+                    max_output_tokens=settings.GEMINI_OUTPUT_TOKENS,
+                ),
+            )
+            if not response.text:
+                raise UpstreamAIError(message="Gemini devolvió una respuesta vacía", details=response)
+            return response.text
+
+        return self._with_fallback(call)
+
+    def detect_ingredients(self, image_bytes: bytes, mime_type: str) -> IngredientsResponse:
+        """Envía una imagen a Gemini Vision y pide ingredientes candidatos."""
+        prompt = _VISION_PROMPT
+
+        def call(model: str) -> IngredientsResponse:
+            response = self.client.models.generate_content(
+                model=model,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+                    prompt,
+                ],
+                config=types.GenerateContentConfig(
+                    temperature=0.2,
+                    max_output_tokens=676,
+                    response_mime_type="application/json",
+                ),
+            )
+            if not response.text:
+                raise UpstreamAIError(message="Gemini Vision devolvió una respuesta vacía")
+            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text))
+
+        return self._with_fallback(call)
+
+    def generate_embeddings(self, texts: list[str], model: str | None = None) -> list[list[float]]:
+        embedding_model = model or settings.GEMINI_EMBEDDING_MODEL
+        try:
+            response = self.client.models.embed_content(
+                model=embedding_model,
+                contents=texts,
+                config=types.EmbedContentConfig(
+                    output_dimensionality=settings.GEMINI_EMBEDDING_DIM,
+                ),
+            )
+        except Exception as exc:  # noqa: BLE001
+            raise UpstreamAIError(message=f"Gemini no pudo generar embeddings: {exc}") from exc
+
+        if not response.embeddings:
+            raise UpstreamAIError(message="Gemini devolvió embeddings vacíos")
+        return [emb.values for emb in response.embeddings]
+
+
+def _strip_code_fence(text: str) -> str:
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned[3:]
+        if cleaned.startswith("json"):
+            cleaned = cleaned[4:]
+        if cleaned.endswith("```"):
+            cleaned = cleaned[:-3]
+    return cleaned.strip()
+
+
+def ai_available() -> bool:
+    return settings.GEMINI_AI_ENABLED and bool(settings.GEMINI_API_KEY)
+
+
+@lru_cache
+def get_gemini_client() -> GeminiClient:
+    return GeminiClient()
+
+
+gemini_client_provider = get_gemini_client
+
+
+_VISION_PROMPT = """Eres un asistente de cocina panameña. Analiza la imagen y detecta los alimentos/ingredientes visibles.
+
+Reglas:
+- Devuelve SOLO JSON con el siguiente esquema exacto:
+{"ingredients": [{"name": "string", "confidence": 0.0-1.0}]}
+- Nombres en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado").
+- No inventes ingredientes que no estén claramente visibles.
+- confidence ≥ 0.5 solo para ingredientes seguros; baja para los dudosos.
+- Máximo 15 ingredientes."""
+
+
+def get_vision_prompt() -> str:
+    return _VISION_PROMPT

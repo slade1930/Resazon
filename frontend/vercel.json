@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/v1/:path*",
+      "destination": "https://resazon-backend.onrender.com/api/v1/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/recetas/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

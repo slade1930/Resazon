@@ -1,0 +1,1091 @@
+RESAZÓN LOOP: 10 RECETAS PANAMEÑAS CON PRODUCTOS NESTLÉ
+
+Nota: Son recetas adicionales a las del recetario original del proyecto.
+Ingredientes y preparación están basados en las fuentes oficiales de
+Recetas Nestlé CAM y redactados de forma resumida para uso como
+dataset/RAG.
+
+1. Tamales Panameños
+
+País: Panamá
+Categoría: Plato tradicional
+Porciones: 12
+Productos Nestlé: Caldo de Pollo y Achiote MAGGI®, Pasta de Tomate
+MAGGI®
+
+Ingredientes
+
+-   5 lb de maíz pilado
+-   Agua
+-   1/2 taza de aceite de achiote
+-   8 encuentros de pollo
+-   5 sobres de Caldo de Pollo y Achiote MAGGI®
+-   2 tazas de cebolla
+-   2 tazas de ají verde
+-   1 taza de ají rojo
+-   2 tazas de tomate
+-   6 dientes de ajo
+-   2 sobres de Pasta de Tomate MAGGI®
+-   1/4 taza de alcaparras
+-   1/4 taza de aceitunas
+-   Culantro
+-   Hojas de bijao
+-   Hilo pabilo
+-   Pimentón, tomate, pasitas y aceitunas al gusto
+
+Preparación
+
+1.  Remojar el maíz unas 8 horas y cocinarlo hasta que esté muy suave.
+2.  Sofreír el pollo con aceite de achiote y Caldo de Pollo y Achiote
+    MAGGI®.
+3.  Añadir cebolla, ají, tomate y ajo; cocinar hasta que el pollo esté
+    listo.
+4.  Incorporar Pasta de Tomate MAGGI®, aceitunas, alcaparras y culantro.
+5.  Retirar y desmenuzar el pollo, conservando el guiso.
+6.  Moler el maíz para formar la masa.
+7.  Colocar masa, pollo y guiso sobre hojas de bijao.
+8.  Envolver y amarrar con hilo pabilo.
+9.  Cocinar los tamales en agua hasta que la masa quede firme.
+
+------------------------------------------------------------------------
+
+2. Guacho de Patitas de Pollo
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 6
+Productos Nestlé: Sopa para Patita de Pollo MAGGI®, Pasta de Tomate
+MAGGI®
+
+Ingredientes
+
+-   6 patitas de pollo limpias
+-   1 taza de mollejas de pollo
+-   3/4 taza de frijolitos cocidos
+-   3/4 taza de arroz blanco
+-   3/4 taza de cebolla
+-   1/2 taza de ají rojo
+-   4 dientes de ajo
+-   3 cucharadas de Pasta de Tomate MAGGI®
+-   1/2 taza de pimentón verde
+-   6 tomates cherry
+-   1 cucharada de aceite
+-   Sal y pimienta
+-   Culantro
+-   4 tazas de agua
+-   1 taza de ñame
+-   1 sobre de Sopa para Patita de Pollo con orégano y culantro MAGGI®
+
+Preparación
+
+1.  Sofreír cebolla, ajo y ají.
+2.  Agregar mollejas y patitas y dorarlas.
+3.  Añadir agua y cocinar.
+4.  Retirar temporalmente las patitas.
+5.  Agregar Sopa para Patita de Pollo MAGGI® y arroz.
+6.  Incorporar frijoles y ñame cuando el arroz esté avanzado.
+7.  Preparar un sofrito de cebolla, pimentón, ajo y Pasta de Tomate
+    MAGGI®.
+8.  Reintegrar las patitas, terminar con culantro y servir.
+
+Nutrición de la fuente por porción: 471.8 kcal, 33.1 g proteína, 41.8 g
+carbohidratos, 18.4 g grasa, 5.2 g fibra.
+
+------------------------------------------------------------------------
+
+3. Bistec Picado con Sazón Criolla
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 4
+Productos Nestlé: Sazonador de Res MAGGI®, Salsa de Tomate Estilo
+Panameño MAGGI®, Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Ingredientes
+
+-   1 lb de carne de res para bistec picado
+-   1 cucharada de aceite
+-   1/4 taza de cebolla
+-   1/3 taza de pimentón
+-   3/4 taza de tomate
+-   1 sobre de Sazonador de Res MAGGI®
+-   1 sobre de Salsa de Tomate Estilo Panameño MAGGI®
+-   Tortillas de maíz fritas
+-   Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Preparación
+
+1.  Sofreír cebolla y pimentón.
+2.  Añadir tomate y carne.
+3.  Incorporar el Sazonador de Res MAGGI® y cocinar.
+4.  Agregar la Salsa de Tomate Estilo Panameño MAGGI®.
+5.  Cocinar hasta que la carne esté tierna.
+6.  Servir con tortillas y queso.
+
+Nutrición de la fuente por porción: 251.2 kcal, 24.7 g proteína, 18 g
+carbohidratos, 9.9 g grasa.
+
+------------------------------------------------------------------------
+
+4. Hamburguesa de Patacón con Ropa Vieja
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 4
+Productos Nestlé: Sazonador de Costilla Criolla MAGGI®, Salsa de Tomate
+con Hongos MAGGI®, Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   1 lb de falda de res
+-   Agua
+-   1 sobre de Sazonador de Costilla Criolla MAGGI®
+-   1 cucharadita de aceite de oliva
+-   1 sobre de Salsa de Tomate con Hongos MAGGI®
+-   1/2 taza de caldo de cocción
+-   Sal y pimienta
+-   2 plátanos verdes
+-   4 rebanadas de Queso Americano NESTLÉ®
+-   Aceite para freír
+
+Preparación
+
+1.  Cocinar la falda con agua y Sazonador de Costilla Criolla MAGGI®
+    hasta ablandar.
+2.  Deshilachar la carne.
+3.  Sofreírla y agregar Salsa de Tomate con Hongos MAGGI® y caldo.
+4.  Cortar los plátanos y freírlos.
+5.  Aplastar y volver a freír para formar patacones.
+6.  Armar con patacón, ropa vieja y queso.
+
+------------------------------------------------------------------------
+
+5. Tortillas Panameñas con Queso
+
+País: Panamá
+Categoría: Desayuno
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Ingredientes
+
+-   2 tazas de harina de maíz
+-   Sal
+-   2 tazas de Queso Americano NESTLÉ® ¡Qué Rico!®
+-   2 cucharadas de mantequilla sin sal
+-   2 tazas de agua tibia
+-   Aceite para freír
+
+Preparación
+
+1.  Mezclar harina, sal y queso.
+2.  Añadir mantequilla y agua gradualmente hasta obtener una masa
+    manejable.
+3.  Formar bolas y aplanarlas.
+4.  Freír hasta dorar.
+5.  Escurrir y servir.
+
+Nutrición de la fuente por porción: 343.6 kcal, 7.1 g proteína, 28.7 g
+carbohidratos, 22.8 g grasa, 2.6 g fibra.
+
+------------------------------------------------------------------------
+
+6. Canastitas de Maíz con Chorizo y Queso
+
+País: Panamá
+Categoría: Desayuno / aperitivo
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   1 taza de harina de maíz
+-   Sal
+-   1 taza de agua tibia
+-   Aceite para freír
+-   1 taza de chorizo parrillero
+-   1 taza de Queso Americano NESTLÉ®
+-   Pico de gallo para acompañar
+
+Preparación
+
+1.  Mezclar harina y sal.
+2.  Añadir agua y formar una masa manejable.
+3.  Formar bolitas y moldearlas como canastitas.
+4.  Freír hasta dorar.
+5.  Dorar el chorizo aparte.
+6.  Rellenar con chorizo y queso.
+7.  Gratinar opcionalmente y servir con pico de gallo.
+
+Nutrición de la fuente por porción: 264.1 kcal, 7.9 g proteína, 14.7 g
+carbohidratos, 19.6 g grasa.
+
+------------------------------------------------------------------------
+
+7. Empanadas Panameñas de Jamón y Queso
+
+País: Panamá
+Categoría: Desayuno / entrada
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   2 tazas de harina de maíz
+-   Sal
+-   2 tazas de agua tibia
+-   3/4 taza de jamón de pollo
+-   8 rebanadas de Queso Americano NESTLÉ®
+-   Aceite para freír
+
+Preparación
+
+1.  Mezclar harina y sal.
+2.  Añadir agua poco a poco y formar la masa.
+3.  Dividir en 8 porciones.
+4.  Aplanar cada porción.
+5.  Rellenar con jamón y queso.
+6.  Cerrar en forma de media luna y sellar.
+7.  Freír hasta dorar.
+8.  Escurrir y servir.
+
+Nutrición de la fuente por porción: 229.6 kcal, 7.5 g proteína, 29.2 g
+carbohidratos, 9.7 g grasa.
+
+------------------------------------------------------------------------
+
+8. Rollos de Queso
+
+País: Panamá
+Categoría: Desayuno / panificación
+Porciones: 12
+Productos Nestlé: Leche KLIM®, Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   3/4 taza de agua tibia
+-   1/4 taza de Leche KLIM®
+-   2 cucharadas de mantequilla
+-   3 3/4 tazas de harina
+-   1 cucharada de levadura instantánea
+-   1/4 taza de azúcar morena
+-   1 cucharada de sal
+-   3 huevos
+-   2 cucharadas de mantequilla derretida
+-   3 tazas de Queso Americano NESTLÉ® rallado
+-   Ajonjolí opcional
+
+Preparación
+
+1.  Combinar agua tibia, KLIM® y mantequilla.
+2.  Mezclar harina, levadura, azúcar y sal.
+3.  Unir ambas preparaciones y agregar huevos.
+4.  Amasar y dejar reposar.
+5.  Estirar la masa.
+6.  Cubrir con mantequilla y queso.
+7.  Enrollar y cortar.
+8.  Colocar en molde y dejar que la masa aumente de volumen.
+9.  Hornear aproximadamente 25-30 minutos a 170 °C.
+10. Servir cuando el queso esté gratinado.
+
+Nutrición de la fuente por porción: 323.5 kcal, 11.3 g proteína, 42.5 g
+carbohidratos, 11.7 g grasa.
+
+------------------------------------------------------------------------
+
+9. Mamallena Panameña
+
+País: Panamá
+Categoría: Postre tradicional
+Porciones: 16
+Productos Nestlé: Leche Condensada LA LECHERA®, Leche Evaporada IDEAL®
+
+Ingredientes
+
+-   20 rebanadas de pan
+-   1 lata de Leche Condensada LA LECHERA®
+-   1 lata de Leche Evaporada IDEAL®
+-   4 huevos
+-   1 cucharadita de vainilla
+-   1 cucharadita de canela
+-   1 taza de pasitas opcional
+
+Preparación
+
+1.  Precalentar el horno a 200 °C.
+2.  Desmenuzar el pan.
+3.  Mezclar con las leches, huevos, vainilla y canela.
+4.  Incorporar pasitas si se desean.
+5.  Colocar en un molde engrasado.
+6.  Hornear aproximadamente 60-70 minutos.
+7.  Dejar templar, cortar y servir.
+
+Nutrición de la fuente por porción: 248.8 kcal, 8.5 g proteína, 40.9 g
+carbohidratos, 6 g grasa, 2 g fibra.
+
+------------------------------------------------------------------------
+
+10. Chicheme Panameño con KLIM®
+
+País: Panamá, especialmente asociado con La Chorrera
+Categoría: Bebida tradicional
+Porciones: 16
+Productos Nestlé: Leche KLIM®, Leche Condensada LA LECHERA®
+
+Ingredientes
+
+-   1 bolsa de maíz para chicheme
+-   1 raja de canela
+-   2 litros de agua
+-   8 cucharadas de leche KLIM®
+-   1 1/2 tazas de agua adicional
+-   1 lata de Leche Condensada LA LECHERA®
+-   1 cucharadita de nuez moscada
+-   2 cucharadas de vainilla
+-   1 cucharadita de canela en polvo
+
+Preparación
+
+1.  Cocinar el maíz con la raja de canela y suficiente agua.
+2.  Mantener el maíz cubierto de líquido durante la cocción.
+3.  Cuando esté suave, retirar la canela.
+4.  Disolver KLIM® en el agua adicional.
+5.  Incorporar KLIM®, LA LECHERA®, vainilla, nuez moscada y canela.
+6.  Mezclar y dejar enfriar.
+7.  Refrigerar y servir frío, o consumir caliente.
+
+Nutrición de la fuente por porción: 126.9 kcal, 3.3 g proteína, 20.2 g
+carbohidratos, 3.4 g grasa.
+
+------------------------------------------------------------------------
+
+METADATOS PARA RAG
+
+Para cada receta, crear posteriormente:
+
+recipe_id name country = “Panamá” category type = “traditional” servings
+ingredients[] nestle_products[] instructions[] nutrition{} source_name
+source_url source_type = “official_nestle” panama_verified = true
+
+REGLA DE RESAZÓN LOOP
+
+PLATO PANAMEÑO: Usar RAG para recuperar recetas tradicionales panameñas.
+
+PLATO PANAMEÑO SALUDABLE: Usar RAG como contexto y permitir a Gemini
+adaptar o generar una alternativa saludable. Los valores nutricionales
+generados deben marcarse como estimados cuando no provengan de una
+fuente nutricional verificable.
+
+CREAR CON MIS INGREDIENTES: Usar ingredientes detectados +
+recetas/conocimiento panameño recuperado + Gemini para generar una
+propuesta estructurada.
+
+FUENTES
+
+Recetas Nestlé CAM - Recetas Bien Panameñas:
+https://www.recetasnestlecam.com/categorias/recetas-bien-panamenas
+
+Tamales Panameños:
+https://www.recetasnestlecam.com/recetas/tamales-panamenos
+
+Guacho de Patitas de Pollo:
+https://www.recetasnestlecam.com/recetas/guacho-de-patitas-de-pollo
+
+Bistec Picado: https://www.recetasnestlecam.com/recetas/bistec-picado
+
+Hamburguesa de Patacón con Ropa Vieja:
+https://www.recetasnestlecam.com/recetas/hamburguesa-de-patacon-con-ropa-vieja
+
+Tortillas con Queso:
+https://www.recetasnestlecam.com/recetas/tortillas-con-queso
+
+Canastitas de Maíz con Chorizo y Queso:
+https://www.recetasnestlecam.com/recetas/canastitas-de-maiz-con-chorizo-y-queso
+
+Empanadas con Jamón y Queso:
+https://www.recetasnestlecam.com/recetas/empanadas-con-jamon-y-queso
+
+Rollos de Queso:
+https://www.recetasnestlecam.com/recetas/rollos-de-queso
+
+Mamallena: https://www.recetasnestlecam.com/recetas/mamallena
+
+Chicheme con KLIM®:
+https://www.recetasnestlecam.com/recetas/chicheme-panameno-con-klim
+
+
+======================================================
+ANEXO - RECETAS SENCILLAS Y POSTRES FÁCILES
+======================================================
+
+PROPÓSITO
+---------
+Estas recetas se agregan como un catálogo complementario para ReSazón Loop.
+Se priorizan preparaciones sencillas, pocos pasos y productos Nestlé.
+
+IMPORTANTE PARA EL RAG:
+- "panama_verified = true" solamente debe utilizarse cuando la fuente
+  identifica explícitamente la preparación como panameña.
+- Las recetas internacionales/fáciles deben guardarse con
+  "panama_verified = false".
+- No presentar una receta internacional como receta tradicional panameña.
+- Pueden utilizarse como base para la sección "¿Qué puedo hacer?" o como
+  inspiración para recetas sencillas.
+- Las recetas saludables generadas por IA deben mantenerse separadas de
+  estas recetas de referencia.
+
+======================================================
+A. RECETAS PANAMEÑAS SENCILLAS
+======================================================
+
+RECETA A01 - RASPADO PANAMEÑO
+------------------------------------------------------
+
+PAÍS:
+Panamá
+
+CATEGORÍA:
+Postre / bebida fría
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+5 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+LA LECHERA® o producto dulce de la línea disponible
+
+INGREDIENTES:
+- Hielo triturado
+- Sirope o jarabe de fruta al gusto
+- Leche condensada LA LECHERA® al gusto
+- Fruta fresca opcional
+
+PREPARACIÓN:
+1. Triturar el hielo.
+2. Colocar el hielo en un vaso.
+3. Añadir el sirope o jarabe.
+4. Agregar leche condensada LA LECHERA®.
+5. Añadir fruta si se desea.
+6. Servir inmediatamente.
+
+CONTEXTO:
+Recetas Nestlé identifica el Raspado Panameño dentro de su categoría
+"Recetas Bien Panameñas" y lo clasifica como una preparación fácil.
+
+
+======================================================
+RECETA A02 - BUDÍN DE PAN
+------------------------------------------------------
+
+PAÍS:
+Panamá / preparación asociada al catálogo panameño de Nestlé
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Intermedia
+
+PRODUCTOS NESTLÉ:
+- Leche Evaporada IDEAL®
+- Leche Condensada LA LECHERA®
+
+INGREDIENTES:
+- Pan del día anterior
+- Leche Evaporada IDEAL®
+- Leche Condensada LA LECHERA®
+- Huevos
+- Vainilla
+- Canela
+- Pasas opcionales
+
+PREPARACIÓN:
+1. Desmenuzar el pan.
+2. Mezclar con la Leche Evaporada IDEAL®.
+3. Añadir Leche Condensada LA LECHERA®, huevos, vainilla y canela.
+4. Incorporar pasas si se desea.
+5. Colocar en un molde.
+6. Hornear hasta que el centro esté firme.
+7. Dejar enfriar antes de cortar.
+
+NOTA:
+La categoría oficial de Nestlé "Recetas Bien Panameñas" incluye Budín de
+pan. Para el RAG debe conservarse la fuente y no sustituir cantidades
+exactas por estimaciones si se requiere reproducir la receta original.
+
+
+======================================================
+B. RECETAS MUY SENCILLAS PARA EL CATÁLOGO GENERAL
+======================================================
+
+RECETA B01 - PURÉ DE PAPAS CREMOSO
+------------------------------------------------------
+
+CATEGORÍA:
+Acompañamiento
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+27 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Papas
+- Leche Evaporada IDEAL®
+- Mantequilla
+- Sal
+- Pimienta
+- Agua
+
+PREPARACIÓN:
+1. Pelar y cortar las papas.
+2. Cocinarlas en agua hasta que estén suaves.
+3. Escurrir.
+4. Aplastar las papas.
+5. Agregar IDEAL®, mantequilla, sal y pimienta.
+6. Mezclar hasta obtener una textura cremosa.
+
+
+======================================================
+RECETA B02 - CHICHA DE AVENA
+------------------------------------------------------
+
+CATEGORÍA:
+Bebida / desayuno
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+35 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Avena
+- Agua
+- Leche Evaporada IDEAL®
+- Canela
+- Azúcar o endulzante al gusto
+- Vainilla opcional
+
+PREPARACIÓN:
+1. Cocinar la avena con agua y canela.
+2. Dejar que la avena se suavice.
+3. Incorporar IDEAL®.
+4. Añadir vainilla y endulzar al gusto.
+5. Mezclar y servir fría o caliente.
+
+
+======================================================
+RECETA B03 - PANCAKES DE BANANA Y AVENA
+------------------------------------------------------
+
+CATEGORÍA:
+Desayuno
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+23 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Banana madura
+- Avena
+- Huevo
+- Leche Evaporada IDEAL®
+- Canela
+- Polvo de hornear
+- Un poco de aceite para cocinar
+
+PREPARACIÓN:
+1. Triturar la banana.
+2. Mezclar con avena, huevo, IDEAL®, canela y polvo de hornear.
+3. Calentar un sartén.
+4. Colocar pequeñas porciones de mezcla.
+5. Cocinar por ambos lados.
+6. Servir con fruta fresca.
+
+
+======================================================
+RECETA B04 - CREPES CON FRUTAS
+------------------------------------------------------
+
+CATEGORÍA:
+Desayuno / postre
+
+DIFICULTAD:
+Fácil
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Harina
+- Huevos
+- Leche Evaporada IDEAL®
+- Agua
+- Frutas frescas
+- Un poco de mantequilla o aceite
+
+PREPARACIÓN:
+1. Mezclar harina, huevos, IDEAL® y agua.
+2. Batir hasta obtener una mezcla líquida y uniforme.
+3. Calentar un sartén.
+4. Cocinar capas finas de mezcla por ambos lados.
+5. Rellenar con fruta.
+6. Doblar y servir.
+
+
+======================================================
+RECETA B05 - NATILLA CREMOSA
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+20 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Leche Evaporada IDEAL®
+- Leche o agua según la preparación
+- Maicena
+- Azúcar
+- Canela
+- Vainilla
+
+PREPARACIÓN:
+1. Disolver la maicena en una parte del líquido frío.
+2. Calentar el resto del líquido con canela.
+3. Añadir la mezcla de maicena.
+4. Remover constantemente.
+5. Agregar azúcar y vainilla.
+6. Cocinar hasta espesar.
+7. Servir caliente o refrigerar.
+
+
+======================================================
+RECETA B06 - BATIDO DE MANGO Y FRESA
+------------------------------------------------------
+
+CATEGORÍA:
+Bebida
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+5 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Mango
+- Fresas
+- Leche Evaporada IDEAL®
+- Hielo
+- Agua o leche adicional si hace falta
+
+PREPARACIÓN:
+1. Lavar y cortar las frutas.
+2. Colocar mango, fresas, IDEAL® y hielo en la licuadora.
+3. Licuar hasta obtener una mezcla homogénea.
+4. Ajustar la textura con un poco de líquido.
+5. Servir inmediatamente.
+
+
+======================================================
+RECETA B07 - PANCAKE DE MAÍZ DULCE
+------------------------------------------------------
+
+CATEGORÍA:
+Desayuno
+
+DIFICULTAD:
+Fácil
+
+TIEMPO:
+20 minutos aproximadamente
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Maíz dulce
+- Harina
+- Huevo
+- Leche Evaporada IDEAL®
+- Polvo de hornear
+- Sal
+- Un poco de aceite
+
+PREPARACIÓN:
+1. Licuar o triturar el maíz.
+2. Mezclar con harina, huevo, IDEAL® y polvo de hornear.
+3. Calentar un sartén.
+4. Cocinar porciones pequeñas por ambos lados.
+5. Servir.
+
+
+======================================================
+RECETA B08 - BATIDO DE BANANA CON LECHE EVAPORADA
+------------------------------------------------------
+
+CATEGORÍA:
+Bebida / desayuno
+
+DIFICULTAD:
+Fácil
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Banana
+- Leche Evaporada IDEAL®
+- Hielo
+- Canela
+- Endulzante opcional
+
+PREPARACIÓN:
+1. Cortar la banana.
+2. Colocar todos los ingredientes en la licuadora.
+3. Licuar hasta que quede cremoso.
+4. Servir frío.
+
+
+======================================================
+C. POSTRES SENCILLOS
+======================================================
+
+POSTRE C01 - MOUSSE DE MARACUYÁ
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil
+
+PRODUCTOS NESTLÉ:
+- Leche Condensada LA LECHERA®
+- Crema de Leche NESTLÉ®
+
+INGREDIENTES:
+- Pulpa o jugo concentrado de maracuyá
+- Leche Condensada LA LECHERA®
+- Crema de Leche NESTLÉ®
+
+PREPARACIÓN:
+1. Mezclar la pulpa de maracuyá con LA LECHERA®.
+2. Incorporar la Crema de Leche NESTLÉ®.
+3. Batir hasta integrar.
+4. Colocar en vasos.
+5. Refrigerar hasta obtener una textura firme.
+6. Decorar con pulpa de maracuyá.
+
+
+======================================================
+POSTRE C02 - DULCE DE ZAPALLO
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Zapallo
+- Leche Evaporada IDEAL®
+- Azúcar o dulce de caña
+- Canela
+- Clavo de olor opcional
+
+PREPARACIÓN:
+1. Cortar el zapallo en trozos.
+2. Cocinar con canela y clavo.
+3. Añadir el endulzante.
+4. Incorporar IDEAL®.
+5. Cocinar hasta obtener una preparación espesa y suave.
+6. Servir caliente o fría.
+
+
+======================================================
+POSTRE C03 - PALITOS O PALETAS DE BANANA CON DULCE DE LECHE
+------------------------------------------------------
+
+CATEGORÍA:
+Postre frío
+
+DIFICULTAD:
+Fácil
+
+PRODUCTO NESTLÉ:
+Dulce de Leche LA LECHERA®
+
+INGREDIENTES:
+- Bananas
+- Dulce de Leche LA LECHERA®
+- Chocolate opcional
+- Palitos de helado
+
+PREPARACIÓN:
+1. Pelar las bananas.
+2. Cortarlas en mitades.
+3. Colocar un palito.
+4. Cubrir con dulce de leche.
+5. Refrigerar o congelar.
+6. Añadir chocolate si se desea.
+
+
+======================================================
+POSTRE C04 - GELATINA DE FRESA
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil
+
+INGREDIENTES:
+- Gelatina de fresa
+- Agua caliente
+- Agua fría
+- Fresas opcionales
+
+PREPARACIÓN:
+1. Disolver la gelatina en agua caliente.
+2. Añadir agua fría.
+3. Incorporar fresas si se desea.
+4. Colocar en recipientes.
+5. Refrigerar hasta que cuaje.
+
+
+======================================================
+POSTRE C05 - ARROZ CON LECHE SENCILLO
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil / intermedia
+
+PRODUCTO NESTLÉ:
+Leche Evaporada IDEAL® o Leche KLIM®
+
+INGREDIENTES:
+- Arroz
+- Agua
+- Leche Evaporada IDEAL®
+- Canela
+- Azúcar
+- Vainilla
+- Leche KLIM® opcional
+
+PREPARACIÓN:
+1. Cocinar el arroz con agua y canela.
+2. Cuando esté suave, incorporar la leche.
+3. Añadir azúcar y vainilla.
+4. Cocinar a fuego bajo hasta espesar.
+5. Servir caliente o refrigerar.
+
+
+======================================================
+POSTRE C06 - CARLOTA DE MARACUYÁ
+------------------------------------------------------
+
+CATEGORÍA:
+Postre frío
+
+DIFICULTAD:
+Fácil
+
+PRODUCTO NESTLÉ:
+Leche Condensada LA LECHERA®
+
+INGREDIENTES:
+- Galletas tipo María
+- Leche Condensada LA LECHERA®
+- Jugo o pulpa de maracuyá
+- Crema de leche opcional
+
+PREPARACIÓN:
+1. Mezclar LA LECHERA® con el maracuyá.
+2. Colocar una capa de galletas.
+3. Cubrir con la mezcla.
+4. Repetir las capas.
+5. Refrigerar hasta que tome consistencia.
+6. Decorar con maracuyá.
+
+
+======================================================
+POSTRE C07 - VASITOS DE TRES LECHES
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil / intermedia
+
+PRODUCTOS NESTLÉ:
+- Leche Condensada LA LECHERA®
+- Leche Evaporada IDEAL®
+
+INGREDIENTES:
+- Bizcocho o pan dulce
+- Leche Condensada LA LECHERA®
+- Leche Evaporada IDEAL®
+- Leche
+- Canela o vainilla
+- Fruta para decorar
+
+PREPARACIÓN:
+1. Cortar el bizcocho en cubos.
+2. Mezclar las leches.
+3. Colocar bizcocho en vasos.
+4. Humedecer con la mezcla.
+5. Refrigerar.
+6. Decorar con fruta.
+
+
+======================================================
+POSTRE C08 - PUDÍN DE BANANA Y FRESA
+------------------------------------------------------
+
+CATEGORÍA:
+Postre
+
+DIFICULTAD:
+Fácil
+
+INGREDIENTES:
+- Banana
+- Fresas
+- Leche
+- Avena o cereal
+- Leche Condensada LA LECHERA® opcional
+
+PREPARACIÓN:
+1. Triturar la banana.
+2. Cortar las fresas.
+3. Mezclar con leche y avena.
+4. Endulzar al gusto.
+5. Refrigerar.
+6. Servir frío.
+
+======================================================
+CLASIFICACIÓN RECOMENDADA PARA RESAZÓN LOOP
+======================================================
+
+TIPOS:
+
+TRADICIONAL_PANAMEÑA
+- Tamales Panameños
+- Guacho de Patitas de Pollo
+- Bistec Picado
+- Hamburguesa de Patacón
+- Tortillas con Queso
+- Canastitas de Maíz
+- Empanadas
+- Rollos de Queso
+- Mamallena
+- Chicheme
+- Raspado Panameño
+- Budín de pan
+
+SIMPLE_GENERAL
+- Puré de Papas
+- Chicha de Avena
+- Pancakes de Banana y Avena
+- Crepes con Frutas
+- Natilla
+- Batido de Mango y Fresa
+- Pancake de Maíz
+- Batido de Banana
+
+POSTRE_SIMPLE
+- Mousse de Maracuyá
+- Dulce de Zapallo
+- Banana con Dulce de Leche
+- Gelatina de Fresa
+- Arroz con Leche
+- Carlota de Maracuyá
+- Vasitos de Tres Leches
+- Pudín de Banana y Fresa
+
+======================================================
+REGLA PARA LA IA
+======================================================
+
+Cuando el usuario tenga pocos ingredientes, el sistema puede utilizar
+estas recetas sencillas como candidatos de baja complejidad.
+
+Ejemplo:
+
+INGREDIENTES:
+- banana
+- leche
+- avena
+
+RESULTADOS:
+
+1. Pancakes de Banana y Avena
+2. Batido de Banana
+3. Pudín de Banana y Fresa si hay fresas
+4. Opción saludable generada por IA
+
+La IA debe mostrar claramente cuáles recetas son:
+- tradicionales panameñas,
+- recetas sencillas de referencia,
+- o recetas generadas/adaptadas.
+
+No debe etiquetar una receta general como "panameña" sin una fuente que
+lo respalde.
+
+======================================================
+FUENTES DE REFERENCIA
+======================================================
+
+Recetas Nestlé CAM:
+https://www.recetasnestlecam.com/
+
+Recetas Bien Panameñas:
+https://www.recetasnestlecam.com/categorias/recetas-bien-panamenas
+
+Recetas rápidas y fáciles:
+https://www.recetasnestlecam.com/categorias/recetas-cocina-rapidas-faciles-hacer
+
+Postres:
+https://www.recetasnestlecam.com/categorias/postres
+
+Postres sin horno:
+https://www.recetasnestlecam.com/categorias/postres-sin-horno
+
+10 recetas con IDEAL®:
+https://www.recetasnestlecam.com/categorias/10-recetas-ideal

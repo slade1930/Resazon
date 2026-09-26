@@ -1,0 +1,414 @@
+RESAZÓN LOOP: 10 RECETAS PANAMEÑAS CON PRODUCTOS NESTLÉ
+
+Nota: Son recetas adicionales a las del recetario original del proyecto.
+Ingredientes y preparación están basados en las fuentes oficiales de
+Recetas Nestlé CAM y redactados de forma resumida para uso como
+dataset/RAG.
+
+1. Tamales Panameños
+
+País: Panamá
+Categoría: Plato tradicional
+Porciones: 12
+Productos Nestlé: Caldo de Pollo y Achiote MAGGI®, Pasta de Tomate
+MAGGI®
+
+Ingredientes
+
+-   5 lb de maíz pilado
+-   Agua
+-   1/2 taza de aceite de achiote
+-   8 encuentros de pollo
+-   5 sobres de Caldo de Pollo y Achiote MAGGI®
+-   2 tazas de cebolla
+-   2 tazas de ají verde
+-   1 taza de ají rojo
+-   2 tazas de tomate
+-   6 dientes de ajo
+-   2 sobres de Pasta de Tomate MAGGI®
+-   1/4 taza de alcaparras
+-   1/4 taza de aceitunas
+-   Culantro
+-   Hojas de bijao
+-   Hilo pabilo
+-   Pimentón, tomate, pasitas y aceitunas al gusto
+
+Preparación
+
+1.  Remojar el maíz unas 8 horas y cocinarlo hasta que esté muy suave.
+2.  Sofreír el pollo con aceite de achiote y Caldo de Pollo y Achiote
+    MAGGI®.
+3.  Añadir cebolla, ají, tomate y ajo; cocinar hasta que el pollo esté
+    listo.
+4.  Incorporar Pasta de Tomate MAGGI®, aceitunas, alcaparras y culantro.
+5.  Retirar y desmenuzar el pollo, conservando el guiso.
+6.  Moler el maíz para formar la masa.
+7.  Colocar masa, pollo y guiso sobre hojas de bijao.
+8.  Envolver y amarrar con hilo pabilo.
+9.  Cocinar los tamales en agua hasta que la masa quede firme.
+
+------------------------------------------------------------------------
+
+2. Guacho de Patitas de Pollo
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 6
+Productos Nestlé: Sopa para Patita de Pollo MAGGI®, Pasta de Tomate
+MAGGI®
+
+Ingredientes
+
+-   6 patitas de pollo limpias
+-   1 taza de mollejas de pollo
+-   3/4 taza de frijolitos cocidos
+-   3/4 taza de arroz blanco
+-   3/4 taza de cebolla
+-   1/2 taza de ají rojo
+-   4 dientes de ajo
+-   3 cucharadas de Pasta de Tomate MAGGI®
+-   1/2 taza de pimentón verde
+-   6 tomates cherry
+-   1 cucharada de aceite
+-   Sal y pimienta
+-   Culantro
+-   4 tazas de agua
+-   1 taza de ñame
+-   1 sobre de Sopa para Patita de Pollo con orégano y culantro MAGGI®
+
+Preparación
+
+1.  Sofreír cebolla, ajo y ají.
+2.  Agregar mollejas y patitas y dorarlas.
+3.  Añadir agua y cocinar.
+4.  Retirar temporalmente las patitas.
+5.  Agregar Sopa para Patita de Pollo MAGGI® y arroz.
+6.  Incorporar frijoles y ñame cuando el arroz esté avanzado.
+7.  Preparar un sofrito de cebolla, pimentón, ajo y Pasta de Tomate
+    MAGGI®.
+8.  Reintegrar las patitas, terminar con culantro y servir.
+
+Nutrición de la fuente por porción: 471.8 kcal, 33.1 g proteína, 41.8 g
+carbohidratos, 18.4 g grasa, 5.2 g fibra.
+
+------------------------------------------------------------------------
+
+3. Bistec Picado con Sazón Criolla
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 4
+Productos Nestlé: Sazonador de Res MAGGI®, Salsa de Tomate Estilo
+Panameño MAGGI®, Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Ingredientes
+
+-   1 lb de carne de res para bistec picado
+-   1 cucharada de aceite
+-   1/4 taza de cebolla
+-   1/3 taza de pimentón
+-   3/4 taza de tomate
+-   1 sobre de Sazonador de Res MAGGI®
+-   1 sobre de Salsa de Tomate Estilo Panameño MAGGI®
+-   Tortillas de maíz fritas
+-   Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Preparación
+
+1.  Sofreír cebolla y pimentón.
+2.  Añadir tomate y carne.
+3.  Incorporar el Sazonador de Res MAGGI® y cocinar.
+4.  Agregar la Salsa de Tomate Estilo Panameño MAGGI®.
+5.  Cocinar hasta que la carne esté tierna.
+6.  Servir con tortillas y queso.
+
+Nutrición de la fuente por porción: 251.2 kcal, 24.7 g proteína, 18 g
+carbohidratos, 9.9 g grasa.
+
+------------------------------------------------------------------------
+
+4. Hamburguesa de Patacón con Ropa Vieja
+
+País: Panamá
+Categoría: Plato fuerte
+Porciones: 4
+Productos Nestlé: Sazonador de Costilla Criolla MAGGI®, Salsa de Tomate
+con Hongos MAGGI®, Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   1 lb de falda de res
+-   Agua
+-   1 sobre de Sazonador de Costilla Criolla MAGGI®
+-   1 cucharadita de aceite de oliva
+-   1 sobre de Salsa de Tomate con Hongos MAGGI®
+-   1/2 taza de caldo de cocción
+-   Sal y pimienta
+-   2 plátanos verdes
+-   4 rebanadas de Queso Americano NESTLÉ®
+-   Aceite para freír
+
+Preparación
+
+1.  Cocinar la falda con agua y Sazonador de Costilla Criolla MAGGI®
+    hasta ablandar.
+2.  Deshilachar la carne.
+3.  Sofreírla y agregar Salsa de Tomate con Hongos MAGGI® y caldo.
+4.  Cortar los plátanos y freírlos.
+5.  Aplastar y volver a freír para formar patacones.
+6.  Armar con patacón, ropa vieja y queso.
+
+------------------------------------------------------------------------
+
+5. Tortillas Panameñas con Queso
+
+País: Panamá
+Categoría: Desayuno
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ® ¡Qué Rico!®
+
+Ingredientes
+
+-   2 tazas de harina de maíz
+-   Sal
+-   2 tazas de Queso Americano NESTLÉ® ¡Qué Rico!®
+-   2 cucharadas de mantequilla sin sal
+-   2 tazas de agua tibia
+-   Aceite para freír
+
+Preparación
+
+1.  Mezclar harina, sal y queso.
+2.  Añadir mantequilla y agua gradualmente hasta obtener una masa
+    manejable.
+3.  Formar bolas y aplanarlas.
+4.  Freír hasta dorar.
+5.  Escurrir y servir.
+
+Nutrición de la fuente por porción: 343.6 kcal, 7.1 g proteína, 28.7 g
+carbohidratos, 22.8 g grasa, 2.6 g fibra.
+
+------------------------------------------------------------------------
+
+6. Canastitas de Maíz con Chorizo y Queso
+
+País: Panamá
+Categoría: Desayuno / aperitivo
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   1 taza de harina de maíz
+-   Sal
+-   1 taza de agua tibia
+-   Aceite para freír
+-   1 taza de chorizo parrillero
+-   1 taza de Queso Americano NESTLÉ®
+-   Pico de gallo para acompañar
+
+Preparación
+
+1.  Mezclar harina y sal.
+2.  Añadir agua y formar una masa manejable.
+3.  Formar bolitas y moldearlas como canastitas.
+4.  Freír hasta dorar.
+5.  Dorar el chorizo aparte.
+6.  Rellenar con chorizo y queso.
+7.  Gratinar opcionalmente y servir con pico de gallo.
+
+Nutrición de la fuente por porción: 264.1 kcal, 7.9 g proteína, 14.7 g
+carbohidratos, 19.6 g grasa.
+
+------------------------------------------------------------------------
+
+7. Empanadas Panameñas de Jamón y Queso
+
+País: Panamá
+Categoría: Desayuno / entrada
+Porciones: 8
+Producto Nestlé: Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   2 tazas de harina de maíz
+-   Sal
+-   2 tazas de agua tibia
+-   3/4 taza de jamón de pollo
+-   8 rebanadas de Queso Americano NESTLÉ®
+-   Aceite para freír
+
+Preparación
+
+1.  Mezclar harina y sal.
+2.  Añadir agua poco a poco y formar la masa.
+3.  Dividir en 8 porciones.
+4.  Aplanar cada porción.
+5.  Rellenar con jamón y queso.
+6.  Cerrar en forma de media luna y sellar.
+7.  Freír hasta dorar.
+8.  Escurrir y servir.
+
+Nutrición de la fuente por porción: 229.6 kcal, 7.5 g proteína, 29.2 g
+carbohidratos, 9.7 g grasa.
+
+------------------------------------------------------------------------
+
+8. Rollos de Queso
+
+País: Panamá
+Categoría: Desayuno / panificación
+Porciones: 12
+Productos Nestlé: Leche KLIM®, Queso Americano NESTLÉ®
+
+Ingredientes
+
+-   3/4 taza de agua tibia
+-   1/4 taza de Leche KLIM®
+-   2 cucharadas de mantequilla
+-   3 3/4 tazas de harina
+-   1 cucharada de levadura instantánea
+-   1/4 taza de azúcar morena
+-   1 cucharada de sal
+-   3 huevos
+-   2 cucharadas de mantequilla derretida
+-   3 tazas de Queso Americano NESTLÉ® rallado
+-   Ajonjolí opcional
+
+Preparación
+
+1.  Combinar agua tibia, KLIM® y mantequilla.
+2.  Mezclar harina, levadura, azúcar y sal.
+3.  Unir ambas preparaciones y agregar huevos.
+4.  Amasar y dejar reposar.
+5.  Estirar la masa.
+6.  Cubrir con mantequilla y queso.
+7.  Enrollar y cortar.
+8.  Colocar en molde y dejar que la masa aumente de volumen.
+9.  Hornear aproximadamente 25-30 minutos a 170 °C.
+10. Servir cuando el queso esté gratinado.
+
+Nutrición de la fuente por porción: 323.5 kcal, 11.3 g proteína, 42.5 g
+carbohidratos, 11.7 g grasa.
+
+------------------------------------------------------------------------
+
+9. Mamallena Panameña
+
+País: Panamá
+Categoría: Postre tradicional
+Porciones: 16
+Productos Nestlé: Leche Condensada LA LECHERA®, Leche Evaporada IDEAL®
+
+Ingredientes
+
+-   20 rebanadas de pan
+-   1 lata de Leche Condensada LA LECHERA®
+-   1 lata de Leche Evaporada IDEAL®
+-   4 huevos
+-   1 cucharadita de vainilla
+-   1 cucharadita de canela
+-   1 taza de pasitas opcional
+
+Preparación
+
+1.  Precalentar el horno a 200 °C.
+2.  Desmenuzar el pan.
+3.  Mezclar con las leches, huevos, vainilla y canela.
+4.  Incorporar pasitas si se desean.
+5.  Colocar en un molde engrasado.
+6.  Hornear aproximadamente 60-70 minutos.
+7.  Dejar templar, cortar y servir.
+
+Nutrición de la fuente por porción: 248.8 kcal, 8.5 g proteína, 40.9 g
+carbohidratos, 6 g grasa, 2 g fibra.
+
+------------------------------------------------------------------------
+
+10. Chicheme Panameño con KLIM®
+
+País: Panamá, especialmente asociado con La Chorrera
+Categoría: Bebida tradicional
+Porciones: 16
+Productos Nestlé: Leche KLIM®, Leche Condensada LA LECHERA®
+
+Ingredientes
+
+-   1 bolsa de maíz para chicheme
+-   1 raja de canela
+-   2 litros de agua
+-   8 cucharadas de leche KLIM®
+-   1 1/2 tazas de agua adicional
+-   1 lata de Leche Condensada LA LECHERA®
+-   1 cucharadita de nuez moscada
+-   2 cucharadas de vainilla
+-   1 cucharadita de canela en polvo
+
+Preparación
+
+1.  Cocinar el maíz con la raja de canela y suficiente agua.
+2.  Mantener el maíz cubierto de líquido durante la cocción.
+3.  Cuando esté suave, retirar la canela.
+4.  Disolver KLIM® en el agua adicional.
+5.  Incorporar KLIM®, LA LECHERA®, vainilla, nuez moscada y canela.
+6.  Mezclar y dejar enfriar.
+7.  Refrigerar y servir frío, o consumir caliente.
+
+Nutrición de la fuente por porción: 126.9 kcal, 3.3 g proteína, 20.2 g
+carbohidratos, 3.4 g grasa.
+
+------------------------------------------------------------------------
+
+METADATOS PARA RAG
+
+Para cada receta, crear posteriormente:
+
+recipe_id name country = “Panamá” category type = “traditional” servings
+ingredients[] nestle_products[] instructions[] nutrition{} source_name
+source_url source_type = “official_nestle” panama_verified = true
+
+REGLA DE RESAZÓN LOOP
+
+PLATO PANAMEÑO: Usar RAG para recuperar recetas tradicionales panameñas.
+
+PLATO PANAMEÑO SALUDABLE: Usar RAG como contexto y permitir a Gemini
+adaptar o generar una alternativa saludable. Los valores nutricionales
+generados deben marcarse como estimados cuando no provengan de una
+fuente nutricional verificable.
+
+CREAR CON MIS INGREDIENTES: Usar ingredientes detectados +
+recetas/conocimiento panameño recuperado + Gemini para generar una
+propuesta estructurada.
+
+FUENTES
+
+Recetas Nestlé CAM - Recetas Bien Panameñas:
+https://www.recetasnestlecam.com/categorias/recetas-bien-panamenas
+
+Tamales Panameños:
+https://www.recetasnestlecam.com/recetas/tamales-panamenos
+
+Guacho de Patitas de Pollo:
+https://www.recetasnestlecam.com/recetas/guacho-de-patitas-de-pollo
+
+Bistec Picado: https://www.recetasnestlecam.com/recetas/bistec-picado
+
+Hamburguesa de Patacón con Ropa Vieja:
+https://www.recetasnestlecam.com/recetas/hamburguesa-de-patacon-con-ropa-vieja
+
+Tortillas con Queso:
+https://www.recetasnestlecam.com/recetas/tortillas-con-queso
+
+Canastitas de Maíz con Chorizo y Queso:
+https://www.recetasnestlecam.com/recetas/canastitas-de-maiz-con-chorizo-y-queso
+
+Empanadas con Jamón y Queso:
+https://www.recetasnestlecam.com/recetas/empanadas-con-jamon-y-queso
+
+Rollos de Queso:
+https://www.recetasnestlecam.com/recetas/rollos-de-queso
+
+Mamallena: https://www.recetasnestlecam.com/recetas/mamallena
+
+Chicheme con KLIM®:
+https://www.recetasnestlecam.com/recetas/chicheme-panameno-con-klim

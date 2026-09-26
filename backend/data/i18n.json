@@ -1,0 +1,991 @@
+{
+  "categories": {
+    "Acompañamiento": { "en": "Side dish", "fr": "Accompagnement" },
+    "Bebida": { "en": "Drink", "fr": "Boisson" },
+    "Bebida / desayuno": { "en": "Drink / breakfast", "fr": "Boisson / petit-déjeuner" },
+    "Bebida tradicional": { "en": "Traditional drink", "fr": "Boisson traditionnelle" },
+    "Desayuno": { "en": "Breakfast", "fr": "Petit-déjeuner" },
+    "Desayuno / aperitivo": { "en": "Breakfast / appetizer", "fr": "Petit-déjeuner / apéritif" },
+    "Desayuno / entrada": { "en": "Breakfast / starter", "fr": "Petit-déjeuner / entrée" },
+    "Desayuno / panificación": { "en": "Breakfast / baking", "fr": "Petit-déjeuner / boulangerie" },
+    "Desayuno / postre": { "en": "Breakfast / dessert", "fr": "Petit-déjeuner / dessert" },
+    "Plato fuerte": { "en": "Main course", "fr": "Plat principal" },
+    "Plato tradicional": { "en": "Traditional dish", "fr": "Plat traditionnel" },
+    "Postre": { "en": "Dessert", "fr": "Dessert" },
+    "Postre / bebida fría": { "en": "Dessert / cold drink", "fr": "Dessert / boisson froide" },
+    "Postre frío": { "en": "Cold dessert", "fr": "Dessert frais" },
+    "Postre tradicional": { "en": "Traditional dessert", "fr": "Dessert traditionnel" }
+  },
+  "units": {
+    "Cucharadita": { "en": "teaspoon", "fr": "cuillère à café" },
+    "cucharadita": { "en": "teaspoon", "fr": "cuillère à café" },
+    "Cucharada": { "en": "tablespoon", "fr": "cuillère à soupe" },
+    "cucharada": { "en": "tablespoon", "fr": "cuillère à soupe" },
+    "cucharadas": { "en": "tablespoons", "fr": "cuillères à soupe" },
+    "Libra": { "en": "lb", "fr": "lb" },
+    "libra": { "en": "lb", "fr": "lb" },
+    "libras": { "en": "lb", "fr": "lb" },
+    "lb": { "en": "lb", "fr": "lb" },
+    "Sobre": { "en": "packet", "fr": "sachet" },
+    "sobre": { "en": "packet", "fr": "sachet" },
+    "Taza": { "en": "cup", "fr": "tasse" },
+    "taza": { "en": "cup", "fr": "tasse" },
+    "Tazas": { "en": "cups", "fr": "tasses" },
+    "tazas": { "en": "cups", "fr": "tasses" },
+    "dientes": { "en": "cloves", "fr": "gousses" },
+    "hojas": { "en": "leaves", "fr": "feuilles" },
+    "lata": { "en": "can", "fr": "boîte" },
+    "litro": { "en": "liter", "fr": "litre" },
+    "litros": { "en": "liters", "fr": "litres" },
+    "rebanadas": { "en": "slices", "fr": "tranches" }
+  },
+  "ingredients": {
+    "aceite": { "en": "oil", "fr": "huile" },
+    "aceite de achiote": { "en": "achiote oil", "fr": "huile de roucou" },
+    "aceite de oliva": { "en": "olive oil", "fr": "huile d'olive" },
+    "aceite vegetal": { "en": "vegetable oil", "fr": "huile végétale" },
+    "Aceite abundante para freír": { "en": "plenty of oil for frying", "fr": "beaucoup d'huile pour frire" },
+    "Aceite para freír": { "en": "oil for frying", "fr": "huile pour frire" },
+    "poco de aceite para cocinar": { "en": "a little oil for cooking", "fr": "un peu d'huile pour cuisiner" },
+    "poco de aceite": { "en": "a little oil", "fr": "un peu d'huile" },
+    "poco de mantequilla o aceite": { "en": "a little butter or oil", "fr": "un peu de beurre ou d'huile" },
+    "agua": { "en": "water", "fr": "eau" },
+    "agua adicional": { "en": "extra water", "fr": "eau supplémentaire" },
+    "Agua caliente": { "en": "hot water", "fr": "eau chaude" },
+    "Agua fría": { "en": "cold water", "fr": "eau froide" },
+    "agua tibia": { "en": "warm water", "fr": "eau tiède" },
+    "Agua o leche adicional si hace falta": { "en": "extra water or milk if needed", "fr": "eau ou lait supplémentaire si besoin" },
+    "ajo": { "en": "garlic", "fr": "ail" },
+    "Ajonjolí": { "en": "sesame seeds", "fr": "graines de sésame" },
+    "ají rojo": { "en": "red ají pepper", "fr": "piment ají rouge" },
+    "ají verde": { "en": "green ají pepper", "fr": "piment ají vert" },
+    "Alcaparras": { "en": "capers", "fr": "câpres" },
+    "Aceitunas": { "en": "olives", "fr": "olives" },
+    "Apio Cortado finamente": { "en": "celery, finely chopped", "fr": "céleri finement haché" },
+    "Arroz": { "en": "rice", "fr": "riz" },
+    "arroz blanco": { "en": "white rice", "fr": "riz blanc" },
+    "Avena": { "en": "oats", "fr": "avoine" },
+    "Avena o cereal": { "en": "oats or cereal", "fr": "avoine ou céréales" },
+    "Azúcar": { "en": "sugar", "fr": "sucre" },
+    "azúcar morena": { "en": "brown sugar", "fr": "cassonade" },
+    "Azúcar o endulzante al gusto": { "en": "sugar or sweetener to taste", "fr": "sucre ou édulcorant au goût" },
+    "Azúcar o dulce de caña": { "en": "sugar or cane syrup", "fr": "sucre ou sirop de canne" },
+    "Banana": { "en": "banana", "fr": "banane" },
+    "Banana madura": { "en": "ripe banana", "fr": "banane mûre" },
+    "Bananas": { "en": "bananas", "fr": "bananes" },
+    "Base para Sancocho MAGGI®": { "en": "MAGGI® Sancocho base", "fr": "Base Sancocho MAGGI®" },
+    "Bizcocho o pan dulce": { "en": "sponge cake or sweet bread", "fr": "gâteau éponge ou pain sucré" },
+    "bolsa de maíz para chicheme": { "en": "bag of corn for chicheme", "fr": "sachet de maïs pour chicheme" },
+    "caldo de cocción": { "en": "cooking broth", "fr": "bouillon de cuisson" },
+    "Canela o vainilla": { "en": "cinnamon or vanilla", "fr": "cannelle ou vanille" },
+    "canela": { "en": "cinnamon", "fr": "cannelle" },
+    "canela en polvo": { "en": "ground cinnamon", "fr": "cannelle en poudre" },
+    "carne de res para bistec picado": { "en": "beef for chopped steak", "fr": "bœuf pour steak haché" },
+    "cebolla": { "en": "onion", "fr": "oignon" },
+    "cebolla cortada finamente": { "en": "onion, finely chopped", "fr": "oignon finement haché" },
+    "chorizo parrillero": { "en": "grilling chorizo", "fr": "chorizo à griller" },
+    "Chocolate": { "en": "chocolate", "fr": "chocolat" },
+    "Cilantro Cortado finamente": { "en": "cilantro, finely chopped", "fr": "coriandre finement hachée" },
+    "Clavo de olor": { "en": "cloves", "fr": "clous de girofle" },
+    "Consomé De Pollo MAGGI®": { "en": "MAGGI® chicken bouillon", "fr": "Bouillon de poulet MAGGI®" },
+    "Crema de Leche NESTLÉ®": { "en": "NESTLÉ® cream", "fr": "Crème NESTLÉ®" },
+    "Crema de leche": { "en": "whipping cream", "fr": "crème liquide" },
+    "culantro cortado finamente": { "en": "culantro, finely chopped", "fr": "culantro finement haché" },
+    "Culantro": { "en": "culantro", "fr": "culantro" },
+    "Dulce de Leche LA LECHERA®": { "en": "LA LECHERA® dulce de leche", "fr": "Dulce de leche LA LECHERA®" },
+    "encuentros de pollo": { "en": "chicken gizzards and hearts", "fr": "gésiers et cœurs de poulet" },
+    "Endulzante": { "en": "sweetener", "fr": "édulcorant" },
+    "falda de res": { "en": "beef flank", "fr": "bavette de bœuf" },
+    "Fresas": { "en": "strawberries", "fr": "fraises" },
+    "Fresas es": { "en": "strawberries", "fr": "fraises" },
+    "Fruta fresca": { "en": "fresh fruit", "fr": "fruits frais" },
+    "Fruta para decorar": { "en": "fruit for garnish", "fr": "fruit pour décorer" },
+    "Frutas frescas": { "en": "fresh fruit", "fr": "fruits frais" },
+    "frijolitos cocidos": { "en": "cooked small beans", "fr": "petits haricots cuits" },
+    "Galletas tipo María": { "en": "Marie biscuits", "fr": "biscuits type Marie" },
+    "Gallinita Sabor y Color MAGGI®": { "en": "MAGGI® Sabor y Color broth", "fr": "Bouillon Sabor y Color MAGGI®" },
+    "Gelatina de fresa": { "en": "strawberry gelatin", "fr": "gelée de fraise" },
+    "guisantes verdes": { "en": "green peas", "fr": "petits pois" },
+    "harina": { "en": "flour", "fr": "farine" },
+    "harina de maíz": { "en": "corn flour", "fr": "farine de maïs" },
+    "Hielo": { "en": "ice", "fr": "glace" },
+    "Hielo triturado": { "en": "crushed ice", "fr": "glace pilée" },
+    "Hilo pabilo": { "en": "kitchen twine", "fr": "ficelle de cuisine" },
+    "Hojas de bijao": { "en": "bijao leaves", "fr": "feuilles de bijao" },
+    "huevos": { "en": "eggs", "fr": "œufs" },
+    "Huevo": { "en": "egg", "fr": "œuf" },
+    "huevo entero": { "en": "whole egg", "fr": "œuf entier" },
+    "jamón de pollo": { "en": "chicken ham", "fr": "jambon de poulet" },
+    "Jugo o pulpa de maracuyá": { "en": "passion fruit juice or pulp", "fr": "jus ou pulpe de fruit de la passion" },
+    "jugo de piña": { "en": "pineapple juice", "fr": "jus d'ananas" },
+    "Leche": { "en": "milk", "fr": "lait" },
+    "Leche o agua según la preparación": { "en": "milk or water as needed", "fr": "lait ou eau selon la préparation" },
+    "Leche Evaporada IDEAL®": { "en": "IDEAL® evaporated milk", "fr": "Lait évaporé IDEAL®" },
+    "Leche KLIM®": { "en": "KLIM® milk", "fr": "Lait KLIM®" },
+    "Leche Klim® Forticrece®": { "en": "Klim® Forticrece® milk", "fr": "Lait Klim® Forticrece®" },
+    "Leche Condensada LA LECHERA®": { "en": "LA LECHERA® sweetened condensed milk", "fr": "Lait concentré sucré LA LECHERA®" },
+    "Leche condensada LA LECHERA® al gusto": { "en": "LA LECHERA® condensed milk, to taste", "fr": "lait concentré LA LECHERA® au goût" },
+    "levadura instantánea": { "en": "instant yeast", "fr": "levure instantanée" },
+    "maíz pilado": { "en": "hulled corn kernels", "fr": "maïs décortiqué" },
+    "Maíz dulce": { "en": "sweet corn", "fr": "maïs doux" },
+    "Maicena": { "en": "cornstarch", "fr": "fécule de maïs" },
+    "Mango": { "en": "mango", "fr": "mangue" },
+    "mantequilla": { "en": "butter", "fr": "beurre" },
+    "mantequilla derretida": { "en": "melted butter", "fr": "beurre fondu" },
+    "mantequilla sin sal": { "en": "unsalted butter", "fr": "beurre doux" },
+    "Mix de Especias y Achiote MAGGI®": { "en": "MAGGI® spice & achiote mix", "fr": "Mélange d'épices et roucou MAGGI®" },
+    "mollejas de pollo": { "en": "chicken gizzards", "fr": "gésiers de poulet" },
+    "ñame": { "en": "yam", "fr": "igname" },
+    "ñame pelado y en cubos": { "en": "peeled and cubed yam", "fr": "igname pelée et coupée en cubes" },
+    "nuez moscada": { "en": "nutmeg", "fr": "noix de muscade" },
+    "pan": { "en": "bread", "fr": "pain" },
+    "Pan del día anterior": { "en": "day-old bread", "fr": "pain de la veille" },
+    "papas sin piel y cortadas en dados": { "en": "peeled and diced potatoes", "fr": "pommes de terre épluchées et en dés" },
+    "Papas": { "en": "potatoes", "fr": "pommes de terre" },
+    "Pasas es": { "en": "raisins", "fr": "raisins secs" },
+    "pasitas": { "en": "raisins", "fr": "raisins secs" },
+    "patitas de pollo limpias": { "en": "cleaned chicken feet", "fr": "pattes de poulet nettoyées" },
+    "pechuga de pollo cortado en cubos": { "en": "chicken breast, cubed", "fr": "poitrine de poulet en cubes" },
+    "Pechuga de pollo": { "en": "chicken breast", "fr": "poitrine de poulet" },
+    "Pico de gallo para acompañar": { "en": "pico de gallo to serve", "fr": "pico de gallo pour accompagner" },
+    "Pimienta": { "en": "pepper", "fr": "poivre" },
+    "pimentón": { "en": "bell pepper", "fr": "poivron" },
+    "Pimentón, tomate, pasitas y aceitunas al gusto": { "en": "bell pepper, tomato, raisins and olives to taste", "fr": "poivron, tomate, raisins secs et olives au goût" },
+    "pimentón verde": { "en": "green bell pepper", "fr": "poivron vert" },
+    "Pimentón rojo Cortado en cubitos": { "en": "red bell pepper, diced", "fr": "poivron rouge coupé en petits dés" },
+    "piña cortada en cubos": { "en": "pineapple, cubed", "fr": "ananas en cubes" },
+    "plátanos verdes": { "en": "green plantains", "fr": "plantains verts" },
+    "polvo de hornear": { "en": "baking powder", "fr": "levure chimique" },
+    "Pulpa o jugo concentrado de maracuyá": { "en": "passion fruit pulp or concentrate", "fr": "pulpe ou jus concentré de fruit de la passion" },
+    "Queso Americano": { "en": "American cheese", "fr": "fromage américain" },
+    "Queso Americano NESTLÉ®": { "en": "NESTLÉ® American cheese", "fr": "fromage américain NESTLÉ®" },
+    "Queso Americano NESTLÉ® ¡Qué Rico!®": { "en": "NESTLÉ® ¡Qué Rico!® American cheese", "fr": "fromage américain NESTLÉ® ¡Qué Rico!®" },
+    "Queso Americano NESTLÉ® rallado": { "en": "shredded NESTLÉ® American cheese", "fr": "fromage américain NESTLÉ® râpé" },
+    "raja de canela": { "en": "cinnamon stick", "fr": "bâton de cannelle" },
+    "Sal": { "en": "salt", "fr": "sel" },
+    "Sal al gusto": { "en": "salt to taste", "fr": "sel au goût" },
+    "Sal y pimienta": { "en": "salt and pepper", "fr": "sel et poivre" },
+    "Sal y pimienta al gusto": { "en": "salt and pepper to taste", "fr": "sel et poivre au goût" },
+    "salchichas": { "en": "sausages", "fr": "saucisses" },
+    "Salsa de Tomate con Hongos MAGGI®": { "en": "MAGGI® tomato & mushroom sauce", "fr": "Sauce tomate-champignons MAGGI®" },
+    "Salsa de Tomate Estilo Panameño MAGGI®": { "en": "MAGGI® Panamanian-style tomato sauce", "fr": "Sauce tomate façon panaméenne MAGGI®" },
+    "Sazonador de Costilla Criolla MAGGI®": { "en": "MAGGI® Criolla rib seasoning", "fr": "Assaisonnement ribs criollo MAGGI®" },
+    "Sazonador de Res MAGGI®": { "en": "MAGGI® beef seasoning", "fr": "Assaisonnement bœuf MAGGI®" },
+    "Sirope o jarabe de fruta al gusto": { "en": "fruit syrup, to taste", "fr": "sirop de fruit au goût" },
+    "sobres de Caldo de Pollo y Achiote MAGGI®": { "en": "packets of MAGGI® chicken & achiote broth", "fr": "sachets de bouillon de poulet et roucou MAGGI®" },
+    "sobres de Pasta de Tomate MAGGI®": { "en": "packets of MAGGI® tomato paste", "fr": "sachets de concentré de tomate MAGGI®" },
+    "Sopa para Patita de Pollo con orégano y culantro MAGGI®": { "en": "MAGGI® chicken-foot soup with oregano and culantro", "fr": "Soupe pattes de poulet à l'origan et culantro MAGGI®" },
+    "tomate": { "en": "tomato", "fr": "tomate" },
+    "tomates cherry": { "en": "cherry tomatoes", "fr": "tomates cerises" },
+    "Tortillas de maíz fritas": { "en": "fried corn tortillas", "fr": "tortillas de maïs frites" },
+    "vainilla": { "en": "vanilla", "fr": "vanille" },
+    "zanahorias cortadas en dados": { "en": "diced carrots", "fr": "carottes en dés" },
+    "Zanahorias Rallada": { "en": "shredded carrots", "fr": "carottes râpées" },
+    "Zapallo": { "en": "pumpkin squash", "fr": "courge zapallo" },
+    "Palitos de helado": { "en": "ice cream sticks", "fr": "bâtonnets de glace" },
+    "Pasta de Tomate MAGGI®": { "en": "MAGGI® tomato paste", "fr": "Concentré de tomate MAGGI®" },
+    "Ketchup MAGGI®": { "en": "MAGGI® ketchup", "fr": "Ketchup MAGGI®" }
+  },
+  "recipes": {
+    "1": {
+      "en": {
+        "name": "Hojaldas (crispy fried dough)",
+        "steps": [
+          "In a bowl, mix the flour, the Klim® Forticrece® milk and the baking powder.",
+          "Add the butter, the egg and the water, and knead until smooth.",
+          "Cover the bowl and let it rest for 4 hours or overnight.",
+          "In a pan, pour plenty of oil and heat until it is very hot.",
+          "Shape 8 balls of about 75 g each and stretch them from the center outward.",
+          "Serve hot with a slice of NESTLÉ® American Cheese."
+        ]
+      },
+      "fr": {
+        "name": "Hojaldas (pâte frite croustillante)",
+        "steps": [
+          "Dans un bol, mélanger la farine, le lait Klim® Forticrece® et la levure chimique.",
+          "Ajouter le beurre, l'œuf et l'eau, puis pétrir jusqu'à obtenir une pâte homogène.",
+          "Couvrir le bol et laisser reposer 4 heures ou toute une nuit.",
+          "Dans une casserole, verser beaucoup d'huile et chauffer jusqu'à ce qu'elle soit très chaude.",
+          "Former 8 boules d'environ 75 g et les étirer du centre vers les bords.",
+          "Servir chaud avec une tranche de fromage américain NESTLÉ®."
+        ]
+      }
+    },
+    "2": {
+      "en": {
+        "name": "Stewed Sausages",
+        "steps": [
+          "Heat the oil in a medium pot.",
+          "Add the sausages and brown them slightly.",
+          "Add the green bell pepper and the finely chopped onion and cook until soft.",
+          "Stir in the MAGGI® spice & achiote mix and the MAGGI® ketchup.",
+          "Add the water and simmer until the flavors come together.",
+          "Serve hot with hojaldas."
+        ]
+      },
+      "fr": {
+        "name": "Saucisses en sauce",
+        "steps": [
+          "Faire chauffer l'huile dans une casserole moyenne.",
+          "Ajouter les saucisses et les faire légèrement dorer.",
+          "Ajouter le poivron vert et l'oignon finement haché et cuire jusqu'à ce qu'ils soient tendres.",
+          "Incorporer le mélange d'épices et roucou MAGGI® et le ketchup MAGGI®.",
+          "Ajouter l'eau et laisser mijoter pour que les saveurs se mélangent.",
+          "Servir chaud avec des hojaldas."
+        ]
+      }
+    },
+    "3": {
+      "en": {
+        "name": "Sancocho (Panamanian chicken and yam stew)",
+        "steps": [
+          "In a large pot, sauté the garlic and onion, then add the chicken and cook until lightly golden.",
+          "Add the water and the MAGGI® Sancocho base packet.",
+          "Cook until it boils, stirring constantly without letting it stick.",
+          "Turn off the heat, add the culantro, and serve hot."
+        ]
+      },
+      "fr": {
+        "name": "Sancocho (ragoût panaméen de poulet et igname)",
+        "steps": [
+          "Dans une grande marmite, faire revenir l'ail et l'oignon, puis ajouter le poulet et le faire légèrement dorer.",
+          "Ajouter l'eau et le sachet de base Sancocho MAGGI®.",
+          "Cuire jusqu'à ébullition en remuant constamment, sans laisser attacher.",
+          "Éteindre le feu, ajouter le culantro et servir chaud."
+        ]
+      }
+    },
+    "4": {
+      "en": {
+        "name": "Chicken Rice",
+        "steps": [
+          "In a bowl, combine the chicken with the MAGGI® chicken bouillon.",
+          "In a pot over medium heat, add the oil and the chicken and cook.",
+          "Add the bell pepper, celery, onion, olives and capers and sauté.",
+          "Add the rice, cilantro, water and the MAGGI® Sabor y Color broth.",
+          "Add the shredded carrot, stir, cover and cook until the rice is done."
+        ]
+      },
+      "fr": {
+        "name": "Riz au poulet",
+        "steps": [
+          "Dans un bol, mélanger le poulet avec le bouillon de poulet MAGGI®.",
+          "Dans une casserole à feu moyen, ajouter l'huile et le poulet et cuire.",
+          "Ajouter le poivron, le céleri, l'oignon, les olives et les câpres et faire revenir.",
+          "Ajouter le riz, la coriandre, l'eau et le bouillon Sabor y Color MAGGI®.",
+          "Ajouter la carotte râpée, remuer, couvrir et cuire jusqu'à ce que le riz soit cuit."
+        ]
+      }
+    },
+    "5": {
+      "en": {
+        "name": "Potato Salad",
+        "steps": [
+          "In a blender, place the IDEAL® milk, oil and pineapple juice and blend the dressing.",
+          "In a large pot over high heat, boil the potatoes and carrots until tender.",
+          "Mix the drained potatoes, carrots and green peas in a bowl.",
+          "Add the dressing and fold gently until combined.",
+          "Season with salt and pepper to taste. Serve and enjoy."
+        ]
+      },
+      "fr": {
+        "name": "Salade de pommes de terre",
+        "steps": [
+          "Dans un blender, mettre le lait évaporé IDEAL®, l'huile et le jus d'ananas pour préparer la vinaigrette.",
+          "Dans une grande casserole à feu vif, faire cuire les pommes de terre et les carottes jusqu'à ce qu'elles soient tendres.",
+          "Dans un bol, mélanger les pommes de terre égouttées, les carottes et les petits pois.",
+          "Ajouter la vinaigrette et mélanger délicatement.",
+          "Assaisonner de sel et poivre au goût. Servir et déguster."
+        ]
+      }
+    },
+    "6": {
+      "en": {
+        "name": "Panamanian Tamales",
+        "steps": [
+          "Soak the corn for about 8 hours, then cook it until very soft.",
+          "Sauté the chicken with achiote oil and the MAGGI® chicken & achiote broth.",
+          "Add onion, ají peppers, tomato and garlic; cook until the chicken is done.",
+          "Stir in the MAGGI® tomato paste, olives, capers and culantro.",
+          "Remove the chicken, shred it and keep the stew.",
+          "Grind the corn to make the dough (masa).",
+          "Place masa, chicken and stew onto bijao leaves.",
+          "Wrap them and tie with kitchen twine.",
+          "Cook the tamales in water until the dough is firm."
+        ]
+      },
+      "fr": {
+        "name": "Tamales panaméens",
+        "steps": [
+          "Faire tremper le maïs environ 8 heures, puis le cuire jusqu'à ce qu'il soit très tendre.",
+          "Faire revenir le poulet avec l'huile de roucou et le bouillon de poulet et roucou MAGGI®.",
+          "Ajouter l'oignon, les piments ají, la tomate et l'ail; cuire jusqu'à ce que le poulet soit cuit.",
+          "Incorporer le concentré de tomate MAGGI®, les olives, les câpres et le culantro.",
+          "Retirer le poulet, l'effilocher et conserver la sauce.",
+          "Moudre le maïs pour former la pâte (masa).",
+          "Déposer la masa, le poulet et la sauce sur des feuilles de bijao.",
+          "Envelopper et ficeler.",
+          "Cuire les tamales dans l'eau jusqu'à ce que la pâte soit ferme."
+        ]
+      }
+    },
+    "7": {
+      "en": {
+        "name": "Chicken-Foot Guacho (Panamanian rice-and-beans soup)",
+        "steps": [
+          "Sauté the onion, garlic and ají pepper.",
+          "Add the gizzards and chicken feet and brown them.",
+          "Add the water and simmer.",
+          "Temporarily remove the chicken feet.",
+          "Add the MAGGI® chicken-foot soup and the rice.",
+          "Stir in the beans and yam once the rice is partly cooked.",
+          "Make a sofrito with onion, bell pepper, garlic and MAGGI® tomato paste.",
+          "Return the chicken feet, finish with culantro and serve."
+        ]
+      },
+      "fr": {
+        "name": "Guacho de pattes de poulet (soupe panaméenne)",
+        "steps": [
+          "Faire revenir l'oignon, l'ail et le piment ají.",
+          "Ajouter les gésiers et les pattes de poulet et les faire dorer.",
+          "Ajouter l'eau et laisser mijoter.",
+          "Retirer temporairement les pattes de poulet.",
+          "Ajouter la soupe pour pattes de poulet MAGGI® et le riz.",
+          "Incorporer les haricots et l'igname quand le riz est à mi-cuisson.",
+          "Préparer un sofrito avec oignon, poivron, ail et concentré de tomate MAGGI®.",
+          "Remettre les pattes de poulet, finir avec le culantro et servir."
+        ]
+      }
+    },
+    "8": {
+      "en": {
+        "name": "Chopped Steak with Criolla Seasoning",
+        "steps": [
+          "Sauté the onion and bell pepper.",
+          "Add the tomato and the meat.",
+          "Stir in the MAGGI® beef seasoning and cook.",
+          "Add the MAGGI® Panamanian-style tomato sauce.",
+          "Cook until the meat is tender.",
+          "Serve with tortillas and cheese."
+        ]
+      },
+      "fr": {
+        "name": "Steak haché à la criolla",
+        "steps": [
+          "Faire revenir l'oignon et le poivron.",
+          "Ajouter la tomate et la viande.",
+          "Incorporer l'assaisonnement bœuf MAGGI® et cuire.",
+          "Ajouter la sauce tomate façon panaméenne MAGGI®.",
+          "Cuire jusqu'à ce que la viande soit tendre.",
+          "Servir avec des tortillas et du fromage."
+        ]
+      }
+    },
+    "9": {
+      "en": {
+        "name": "Fried Plantain Burger with Ropa Vieja",
+        "steps": [
+          "Cook the beef flank in water with the MAGGI® Criolla rib seasoning until tender.",
+          "Shred the meat.",
+          "Sauté it and add the MAGGI® tomato & mushroom sauce and some broth.",
+          "Cut the plantains into rounds and fry them.",
+          "Flatten them and fry again to make patacones.",
+          "Assemble with patacón, ropa vieja and cheese."
+        ]
+      },
+      "fr": {
+        "name": "Burger de patacón à la ropa vieja",
+        "steps": [
+          "Cuire la bavette avec de l'eau et l'assaisonnement ribs criollo MAGGI® jusqu'à ce qu'elle soit tendre.",
+          "Effilocher la viande.",
+          "La faire revenir et ajouter la sauce tomate-champignons MAGGI® et un peu de bouillon.",
+          "Couper les plantains en rondelles et les frire.",
+          "Les aplatir et les frire à nouveau pour former des patacones.",
+          "Monter le burger avec le patacón, la ropa vieja et le fromage."
+        ]
+      }
+    },
+    "10": {
+      "en": {
+        "name": "Panamanian Cheese Tortillas",
+        "steps": [
+          "Mix the corn flour, salt and cheese.",
+          "Add the butter and, little by little, the warm water until you get a manageable dough.",
+          "Shape balls and flatten them.",
+          "Fry until golden.",
+          "Drain and serve."
+        ]
+      },
+      "fr": {
+        "name": "Tortillas panaméennes au fromage",
+        "steps": [
+          "Mélanger la farine de maïs, le sel et le fromage.",
+          "Ajouter le beurre puis l'eau tiède peu à peu, jusqu'à obtenir une pâte maniable.",
+          "Former des boules et les aplatir.",
+          "Frire jusqu'à ce qu'elles soient dorées.",
+          "Égoutter et servir."
+        ]
+      }
+    },
+    "11": {
+      "en": {
+        "name": "Cheese & Chorizo Corn Baskets",
+        "steps": [
+          "Mix the corn flour and salt.",
+          "Add the water and shape a manageable dough.",
+          "Form small balls and mold them like little baskets.",
+          "Fry until golden.",
+          "Brown the chorizo separately.",
+          "Fill the baskets with chorizo and cheese.",
+          "Optionally gratin, and serve with pico de gallo."
+        ]
+      },
+      "fr": {
+        "name": "Panier de maïs au chorizo et fromage",
+        "steps": [
+          "Mélanger la farine de maïs et le sel.",
+          "Ajouter l'eau et former une pâte maniable.",
+          "Former de petites boules et les façonner en petits paniers.",
+          "Frire jusqu'à ce qu'ils soient dorés.",
+          "Faire dorer le chorizo à part.",
+          "Garnir les paniers de chorizo et de fromage.",
+          "Gratiner au choix et servir avec du pico de gallo."
+        ]
+      }
+    },
+    "12": {
+      "en": {
+        "name": "Panamanian Ham & Cheese Empanadas",
+        "steps": [
+          "Mix the corn flour and salt.",
+          "Add the water little by little and form the dough.",
+          "Divide it into 8 portions.",
+          "Flatten each portion.",
+          "Fill with ham and cheese.",
+          "Seal into half-moon shapes and crimp the edges.",
+          "Fry until golden.",
+          "Drain and serve."
+        ]
+      },
+      "fr": {
+        "name": "Empanadas panaméennes au jambon et fromage",
+        "steps": [
+          "Mélanger la farine de maïs et le sel.",
+          "Ajouter l'eau petit à petit et former la pâte.",
+          "Diviser en 8 portions.",
+          "Aplatir chaque portion.",
+          "Garnir de jambon et de fromage.",
+          "Former des demi-lunes et bien souder les bords.",
+          "Frire jusqu'à ce qu'elles soient dorées.",
+          "Égoutter et servir."
+        ]
+      }
+    },
+    "13": {
+      "en": {
+        "name": "Cheese Rolls",
+        "steps": [
+          "Combine the warm water, KLIM® milk and butter.",
+          "Mix the flour, yeast, brown sugar and salt.",
+          "Combine both mixtures and add the eggs.",
+          "Knead and let rise.",
+          "Roll out the dough.",
+          "Brush with butter and cover with cheese.",
+          "Roll it up and cut into slices.",
+          "Place in a mold and let the dough rise again.",
+          "Bake for about 25–30 minutes at 170 °C.",
+          "Serve once the cheese is golden."
+        ]
+      },
+      "fr": {
+        "name": "Roulés au fromage",
+        "steps": [
+          "Mélanger l'eau tiède, le lait KLIM® et le beurre.",
+          "Mélanger la farine, la levure, la cassonade et le sel.",
+          "Réunir les deux préparations et ajouter les œufs.",
+          "Pétrir et laisser reposer.",
+          "Étaler la pâte.",
+          "Badigeonner de beurre et couvrir de fromage.",
+          "Rouler et couper en tranches.",
+          "Placer dans un moule et laisser lever à nouveau.",
+          "Cuire environ 25 à 30 minutes à 170 °C.",
+          "Servir quand le fromage est gratiné."
+        ]
+      }
+    },
+    "14": {
+      "en": {
+        "name": "Mamallena (Panamanian bread pudding)",
+        "steps": [
+          "Preheat the oven to 200 °C.",
+          "Crumble the bread.",
+          "Mix it with the milks, eggs, vanilla and cinnamon.",
+          "Stir in the raisins if you like.",
+          "Pour into a greased mold.",
+          "Bake for about 60–70 minutes.",
+          "Let it cool slightly, then cut and serve."
+        ]
+      },
+      "fr": {
+        "name": "Mamallena (pudding de pain panaméen)",
+        "steps": [
+          "Préchauffer le four à 200 °C.",
+          "Émietter le pain.",
+          "Le mélanger avec les laits, les œufs, la vanille et la cannelle.",
+          "Incorporer les raisins secs si désiré.",
+          "Verser dans un moule beurré.",
+          "Cuire environ 60 à 70 minutes.",
+          "Laisser tiédir, puis couper et servir."
+        ]
+      }
+    },
+    "15": {
+      "en": {
+        "name": "Chicheme with KLIM®",
+        "steps": [
+          "Cook the corn with the cinnamon stick and plenty of water.",
+          "Keep the corn covered with liquid while cooking.",
+          "When tender, remove the cinnamon.",
+          "Dissolve the KLIM® milk in the extra water.",
+          "Stir in the KLIM®, LA LECHERA®, vanilla, nutmeg and cinnamon.",
+          "Mix and let cool.",
+          "Refrigerate and serve cold, or drink it hot."
+        ]
+      },
+      "fr": {
+        "name": "Chicheme au KLIM®",
+        "steps": [
+          "Cuire le maïs avec le bâton de cannelle et beaucoup d'eau.",
+          "Garder le maïs couvert de liquide pendant la cuisson.",
+          "Lorsqu'il est tendre, retirer la cannelle.",
+          "Dissoudre le lait KLIM® dans l'eau supplémentaire.",
+          "Incorporer le KLIM®, le LA LECHERA®, la vanille, la muscade et la cannelle.",
+          "Mélanger et laisser refroidir.",
+          "Réfrigérer et servir frais, ou déguster chaud."
+        ]
+      }
+    },
+    "16": {
+      "en": {
+        "name": "Panamanian Shaved Ice (Raspado)",
+        "steps": [
+          "Crush the ice.",
+          "Fill a glass with the crushed ice.",
+          "Pour the fruit syrup over it.",
+          "Add the LA LECHERA® condensed milk.",
+          "Add fruit if you like.",
+          "Serve immediately."
+        ]
+      },
+      "fr": {
+        "name": "Raspado panaméen (granité)",
+        "steps": [
+          "Piler la glace.",
+          "Remplir un verre de glace pilée.",
+          "Verser le sirop de fruit par-dessus.",
+          "Ajouter le lait concentré LA LECHERA®.",
+          "Ajouter des fruits si désiré.",
+          "Servir immédiatement."
+        ]
+      }
+    },
+    "17": {
+      "en": {
+        "name": "Bread Pudding",
+        "steps": [
+          "Crumble the bread.",
+          "Mix it with the IDEAL® evaporated milk.",
+          "Add the LA LECHERA® condensed milk, eggs, vanilla and cinnamon.",
+          "Stir in the raisins if you like.",
+          "Pour into a mold.",
+          "Bake until the center is firm.",
+          "Let it cool before cutting."
+        ]
+      },
+      "fr": {
+        "name": "Budín de pain",
+        "steps": [
+          "Émietter le pain.",
+          "Le mélanger avec le lait évaporé IDEAL®.",
+          "Ajouter le lait concentré LA LECHERA®, les œufs, la vanille et la cannelle.",
+          "Incorporer les raisins secs si désiré.",
+          "Verser dans un moule.",
+          "Cuire jusqu'à ce que le centre soit ferme.",
+          "Laisser refroidir avant de couper."
+        ]
+      }
+    },
+    "18": {
+      "en": {
+        "name": "Creamy Mashed Potatoes",
+        "steps": [
+          "Peel and cut the potatoes.",
+          "Cook them in water until tender.",
+          "Drain well.",
+          "Mash the potatoes.",
+          "Add the IDEAL® milk, butter, salt and pepper.",
+          "Mix until creamy and smooth."
+        ]
+      },
+      "fr": {
+        "name": "Purée de pommes de terre crémeuse",
+        "steps": [
+          "Éplucher et couper les pommes de terre.",
+          "Les cuire dans l'eau jusqu'à ce qu'elles soient tendres.",
+          "Bien égoutter.",
+          "Écraser les pommes de terre.",
+          "Ajouter le lait évaporé IDEAL®, le beurre, le sel et le poivre.",
+          "Mélanger jusqu'à obtenir une texture crémeuse."
+        ]
+      }
+    },
+    "19": {
+      "en": {
+        "name": "Oatmeal Chicha (Oat Drink)",
+        "steps": [
+          "Cook the oats with water and cinnamon.",
+          "Let the oats soften.",
+          "Stir in the IDEAL® milk.",
+          "Add the vanilla and sweeten to taste.",
+          "Mix and serve cold or hot."
+        ]
+      },
+      "fr": {
+        "name": "Chicha d'avoine (boisson à l'avoine)",
+        "steps": [
+          "Cuire l'avoine avec de l'eau et de la cannelle.",
+          "Laisser l'avoine ramollir.",
+          "Incorporer le lait évaporé IDEAL®.",
+          "Ajouter la vanille et sucrer au goût.",
+          "Mélanger et servir frais ou chaud."
+        ]
+      }
+    },
+    "20": {
+      "en": {
+        "name": "Banana & Oat Pancakes",
+        "steps": [
+          "Mash the banana.",
+          "Mix it with the oats, egg, IDEAL® milk, cinnamon and baking powder.",
+          "Heat a skillet.",
+          "Drop small portions of the batter.",
+          "Cook on both sides.",
+          "Serve with fresh fruit."
+        ]
+      },
+      "fr": {
+        "name": "Pancakes banane-avoine",
+        "steps": [
+          "Écraser la banane.",
+          "La mélanger avec l'avoine, l'œuf, le lait évaporé IDEAL®, la cannelle et la levure chimique.",
+          "Faire chauffer une poêle.",
+          "Déposer de petites portions de pâte.",
+          "Cuire des deux côtés.",
+          "Servir avec des fruits frais."
+        ]
+      }
+    },
+    "21": {
+      "en": {
+        "name": "Fruit Crêpes",
+        "steps": [
+          "Mix the flour, eggs, IDEAL® milk and water.",
+          "Whisk until smooth and liquid.",
+          "Heat a skillet.",
+          "Cook thin layers of batter on both sides.",
+          "Fill with fruit.",
+          "Fold and serve."
+        ]
+      },
+      "fr": {
+        "name": "Crêpes aux fruits",
+        "steps": [
+          "Mélanger la farine, les œufs, le lait évaporé IDEAL® et l'eau.",
+          "Fouetter jusqu'à obtenir une pâte liquide et homogène.",
+          "Faire chauffer une poêle.",
+          "Cuire de fines couches de pâte des deux côtés.",
+          "Garnir de fruits.",
+          "Plier et servir."
+        ]
+      }
+    },
+    "22": {
+      "en": {
+        "name": "Creamy Custard (Natilla)",
+        "steps": [
+          "Dissolve the cornstarch in part of the cold liquid.",
+          "Heat the rest of the liquid with the cinnamon.",
+          "Add the cornstarch mixture.",
+          "Stir constantly.",
+          "Add the sugar and vanilla.",
+          "Cook until thickened.",
+          "Serve hot, or refrigerate and serve cold."
+        ]
+      },
+      "fr": {
+        "name": "Natilla crémeuse",
+        "steps": [
+          "Dissoudre la fécule de maïs dans une partie du liquide froid.",
+          "Faire chauffer le reste du liquide avec la cannelle.",
+          "Ajouter le mélange de fécule.",
+          "Remuer constamment.",
+          "Ajouter le sucre et la vanille.",
+          "Cuire jusqu'à épaississement.",
+          "Servir chaud, ou réfrigérer et servir frais."
+        ]
+      }
+    },
+    "23": {
+      "en": {
+        "name": "Mango & Strawberry Smoothie",
+        "steps": [
+          "Wash and cut the fruit.",
+          "Put the mango, strawberries, IDEAL® milk and ice in the blender.",
+          "Blend until smooth.",
+          "Adjust the texture with a little liquid if needed.",
+          "Serve immediately."
+        ]
+      },
+      "fr": {
+        "name": "Smoothie mangue-fraise",
+        "steps": [
+          "Laver et couper les fruits.",
+          "Mettre la mangue, les fraises, le lait évaporé IDEAL® et la glace dans le blender.",
+          "Mixer jusqu'à obtenir une préparation homogène.",
+          "Ajuster la texture avec un peu de liquide si besoin.",
+          "Servir immédiatement."
+        ]
+      }
+    },
+    "24": {
+      "en": {
+        "name": "Sweet Corn Pancake",
+        "steps": [
+          "Blend or crush the sweet corn.",
+          "Mix it with the flour, egg, IDEAL® milk and baking powder.",
+          "Heat a skillet.",
+          "Cook small portions on both sides.",
+          "Serve warm."
+        ]
+      },
+      "fr": {
+        "name": "Pancake de maïs doux",
+        "steps": [
+          "Mixer ou écraser le maïs doux.",
+          "Le mélanger avec la farine, l'œuf, le lait évaporé IDEAL® et la levure chimique.",
+          "Faire chauffer une poêle.",
+          "Cuire de petites portions des deux côtés.",
+          "Servir."
+        ]
+      }
+    },
+    "25": {
+      "en": {
+        "name": "Banana & Evaporated Milk Shake",
+        "steps": [
+          "Cut up the banana.",
+          "Put all the ingredients in the blender.",
+          "Blend until creamy.",
+          "Serve cold."
+        ]
+      },
+      "fr": {
+        "name": "Milk-shake banane et lait évaporé",
+        "steps": [
+          "Couper la banane.",
+          "Mettre tous les ingrédients dans le blender.",
+          "Mixer jusqu'à obtenir une texture crémeuse.",
+          "Servir frais."
+        ]
+      }
+    },
+    "26": {
+      "en": {
+        "name": "Passion Fruit Mousse",
+        "steps": [
+          "Mix the passion fruit pulp with the LA LECHERA® milk.",
+          "Fold in the NESTLÉ® cream.",
+          "Whisk until well combined.",
+          "Pour into glasses.",
+          "Chill until it sets.",
+          "Garnish with passion fruit pulp."
+        ]
+      },
+      "fr": {
+        "name": "Mousse au fruit de la passion",
+        "steps": [
+          "Mélanger la pulpe de fruit de la passion avec le lait LA LECHERA®.",
+          "Incorporer la crème NESTLÉ®.",
+          "Fouetter jusqu'à obtenir un mélange homogène.",
+          "Verser dans des verres.",
+          "Réfrigérer jusqu'à ce que la préparation soit ferme.",
+          "Décorer de pulpe de fruit de la passion."
+        ]
+      }
+    },
+    "27": {
+      "en": {
+        "name": "Sweet Pumpkin (Dulce de Zapallo)",
+        "steps": [
+          "Cut the pumpkin squash into pieces.",
+          "Cook it with cinnamon and cloves.",
+          "Add the sweetener.",
+          "Stir in the IDEAL® milk.",
+          "Cook until thick and smooth.",
+          "Serve warm or cold."
+        ]
+      },
+      "fr": {
+        "name": "Dulce de zapallo (courge sucrée)",
+        "steps": [
+          "Couper la courge en morceaux.",
+          "La cuire avec la cannelle et les clous de girofle.",
+          "Ajouter l'édulcorant.",
+          "Incorporer le lait évaporé IDEAL®.",
+          "Cuire jusqu'à obtenir une préparation épaisse et lisse.",
+          "Servir chaud ou froid."
+        ]
+      }
+    },
+    "28": {
+      "en": {
+        "name": "Banana Popsicles with Dulce de Leche",
+        "steps": [
+          "Peel the bananas.",
+          "Cut them in halves.",
+          "Insert a stick into each half.",
+          "Coat with dulce de leche.",
+          "Refrigerate or freeze.",
+          "Add chocolate if you like."
+        ]
+      },
+      "fr": {
+        "name": "Paletas de banane au dulce de leche",
+        "steps": [
+          "Peler les bananes.",
+          "Les couper en deux.",
+          "Enfoncer un bâtonnet dans chaque moitié.",
+          "Enrober de dulce de leche.",
+          "Réfrigérer ou congeler.",
+          "Ajouter du chocolat si désiré."
+        ]
+      }
+    },
+    "29": {
+      "en": {
+        "name": "Strawberry Gelatin",
+        "steps": [
+          "Dissolve the gelatin in hot water.",
+          "Add the cold water.",
+          "Stir in the strawberries if you like.",
+          "Pour into small bowls.",
+          "Chill until set."
+        ]
+      },
+      "fr": {
+        "name": "Gelée de fraise",
+        "steps": [
+          "Dissoudre la gelée dans l'eau chaude.",
+          "Ajouter l'eau froide.",
+          "Incorporer les fraises si désiré.",
+          "Verser dans des coupes.",
+          "Réfrigérer jusqu'à prise."
+        ]
+      }
+    },
+    "30": {
+      "en": {
+        "name": "Simple Rice Pudding (Arroz con Leche)",
+        "steps": [
+          "Cook the rice with water and cinnamon.",
+          "When tender, stir in the milk.",
+          "Add the sugar and vanilla.",
+          "Cook over low heat until thickened.",
+          "Serve warm or chilled."
+        ]
+      },
+      "fr": {
+        "name": "Riz au lait simple",
+        "steps": [
+          "Cuire le riz avec de l'eau et de la cannelle.",
+          "Quand il est tendre, incorporer le lait.",
+          "Ajouter le sucre et la vanille.",
+          "Cuire à feu doux jusqu'à épaississement.",
+          "Servir chaud ou froid."
+        ]
+      }
+    },
+    "31": {
+      "en": {
+        "name": "Passion Fruit Charlotte (Carlota)",
+        "steps": [
+          "Mix the LA LECHERA® milk with the passion fruit.",
+          "Layer the cookies at the bottom.",
+          "Cover with the mixture.",
+          "Repeat the layers.",
+          "Chill until firm.",
+          "Garnish with passion fruit."
+        ]
+      },
+      "fr": {
+        "name": "Carlota au fruit de la passion",
+        "steps": [
+          "Mélanger le lait LA LECHERA® avec le fruit de la passion.",
+          "Déposer une couche de biscuits.",
+          "Couvrir avec la préparation.",
+          "Répéter les couches.",
+          "Réfrigérer jusqu'à ce que la préparation prenne.",
+          "Décorer avec du fruit de la passion."
+        ]
+      }
+    },
+    "32": {
+      "en": {
+        "name": "Three-Milk Cups (Vasitos de Tres Leches)",
+        "steps": [
+          "Cut the sponge cake into cubes.",
+          "Mix the milks together.",
+          "Place the cake cubes in glasses.",
+          "Moisten with the milk mixture.",
+          "Chill.",
+          "Garnish with fruit."
+        ]
+      },
+      "fr": {
+        "name": "Verrines de tres leches",
+        "steps": [
+          "Couper le gâteau en cubes.",
+          "Mélanger les laits.",
+          "Placer le gâteau dans des verrines.",
+          "Humidifier avec le mélange de laits.",
+          "Réfrigérer.",
+          "Décorer avec des fruits."
+        ]
+      }
+    },
+    "33": {
+      "en": {
+        "name": "Banana & Strawberry Pudding",
+        "steps": [
+          "Mash the banana.",
+          "Cut the strawberries.",
+          "Mix with the milk and oats.",
+          "Sweeten to taste.",
+          "Chill.",
+          "Serve cold."
+        ]
+      },
+      "fr": {
+        "name": "Pudding banane-fraise",
+        "steps": [
+          "Écraser la banane.",
+          "Couper les fraises.",
+          "Mélanger avec le lait et l'avoine.",
+          "Sucrer au goût.",
+          "Réfrigérer.",
+          "Servir frais."
+        ]
+      }
+    }
+  }
+}

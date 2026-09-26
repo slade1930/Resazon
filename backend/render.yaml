@@ -1,0 +1,27 @@
+databases:
+  - name: resazon-db
+    plan: free
+    databaseName: resazon_loop
+    user: resazon
+
+services:
+  - type: web
+    name: resazon-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: resazon-db
+          property: connectionString
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://resazon-loop.vercel.app"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_AI_ENABLED
+        value: false

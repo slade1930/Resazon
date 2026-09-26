@@ -1,0 +1,38 @@
+# ── Entorno y secretos: NUNCA se suben ─────────────────────────────
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+**/.envrc
+*.pem
+*.key
+*sercvice_account*.json
+credentials*.json
+
+# ── Backend (Python) ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ── Frontend / Mobile ──────────────────────────────────────────────
+node_modules/
+.next/
+out/
+dist/
+build/
+.expo/
+*.tsbuildinfo
+
+# ── SO / editores / misc ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+.gstack/
