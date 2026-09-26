@@ -4,12 +4,14 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import NullPool
 
 from app.core.config import settings
 
 engine = create_engine(
     settings.DATABASE_URL,
     pool_pre_ping=True,
+    poolclass=NullPool,
     future=True,
 )
 
