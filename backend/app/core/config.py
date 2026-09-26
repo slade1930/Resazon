@@ -15,9 +15,8 @@ class Settings(BaseSettings):
     # Gemini / IA
     GEMINI_API_KEY: str = ""
     GEMINI_AI_ENABLED: bool = False
-    GEMINI_MODEL: str = "gemini-3.6-flash"
+    GEMINI_MODEL: str = "gemini-3.5-flash-lite"
     GEMINI_FALLBACK_MODELS: list[str] = [
-        "gemini-3.7-flash",
         "gemini-3.5-flash",
         "gemini-3.1-flash-lite",
         "gemini-flash-lite-latest",
@@ -25,6 +24,11 @@ class Settings(BaseSettings):
     GEMINI_EMBEDDING_MODEL: str = "gemini-embedding-001"
     GEMINI_EMBEDDING_DIM: int = 768
     GEMINI_OUTPUT_TOKENS: int = 2048
+
+    # Límites de IA (configurables por env)
+    MAX_AI_REQUESTS_PER_DAY: int = 100
+    MAX_IMAGE_ANALYSES_PER_USER_DAY: int = 10
+    MAX_HEALTHY_GENERATIONS_PER_USER_DAY: int = 3
 
     # Base de datos
     DATABASE_URL: str = "postgresql+psycopg2://resazon:resazon@localhost:5432/resazon_loop"

@@ -2,6 +2,7 @@
 
 import time
 from collections.abc import Callable
+from dataclasses import dataclass
 from functools import lru_cache
 from typing import TypeVar
 
@@ -13,6 +14,16 @@ from app.core.exceptions import AINotConfiguredError, UpstreamAIError
 from app.vision.schemas import IngredientsResponse
 
 T = TypeVar("T")
+
+
+@dataclass
+class GeminiResponse:
+    """Respuesta de Gemini con metadatos de uso."""
+    data: T
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+    model_used: str | None = None
+
 
 _RETRIES_PER_MODEL = 2
 _RETRY_DELAYS = (1.0, 3.0)
@@ -31,6 +42,15 @@ def _build_error(*attempts: Exception | None) -> UpstreamAIError:
     return UpstreamAIError(message=detail)
 
 
+def _extract_usage(response: types.GenerateContentResponse) -> tuple[int | None, int | None]:
+    """Extrae tokens de uso del response."""
+    if hasattr(response, 'usage_metadata') and response.usage_metadata:
+        input_tokens = getattr(response.usage_metadata, 'prompt_token_count', None)
+        output_tokens = getattr(response.usage_metadata, 'candidates_token_count', None)
+        return input_tokens, output_tokens
+    return None, None
+
+
 class GeminiClient:
     """Wrapper sobre google-genai. No expone nada del SDK al resto del código."""
 
@@ -46,7 +66,7 @@ class GeminiClient:
             raise AINotConfiguredError("GEMINI_API_KEY no está definida en backend/.env")
         self.client = genai.Client(api_key=self.api_key)
 
-    def _with_fallback(self, caller: Callable[[str], T]) -> T:
+    def _with_fallback(self, caller: Callable[[str], tuple[T, types.GenerateContentResponse]]) -> tuple[T, types.GenerateContentResponse]:
         """Reintenta cada modelo ante 503/429 de saturación; si se agotan, prueba el siguiente."""
         attempts: list[Exception | None] = []
         for model in self.models:
@@ -61,7 +81,7 @@ class GeminiClient:
         raise _build_error(*attempts)
 
     def generate_content(self, prompt: str, temperature: float = 0.7) -> str:
-        def call(model: str) -> str:
+        def call(model: str) -> tuple[str, types.GenerateContentResponse]:
             response = self.client.models.generate_content(
                 model=model,
                 contents=prompt,
@@ -72,15 +92,34 @@ class GeminiClient:
             )
             if not response.text:
                 raise UpstreamAIError(message="Gemini devolvió una respuesta vacía", details=response)
-            return response.text
+            return response.text, response
 
-        return self._with_fallback(call)
+        text, _ = self._with_fallback(call)
+        return text
+
+    def generate_content_with_usage(self, prompt: str, temperature: float = 0.7) -> GeminiResponse:
+        def call(model: str) -> tuple[str, types.GenerateContentResponse]:
+            response = self.client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=temperature,
+                    max_output_tokens=settings.GEMINI_OUTPUT_TOKENS,
+                ),
+            )
+            if not response.text:
+                raise UpstreamAIError(message="Gemini devolvió una respuesta vacía", details=response)
+            return response.text, response
+
+        text, response = self._with_fallback(call)
+        input_tokens, output_tokens = _extract_usage(response)
+        return GeminiResponse(data=text, input_tokens=input_tokens, output_tokens=output_tokens, model_used=response.model_version if hasattr(response, 'model_version') else None)
 
     def detect_ingredients(self, image_bytes: bytes, mime_type: str) -> IngredientsResponse:
         """Envía una imagen a Gemini Vision y pide ingredientes candidatos."""
         prompt = _VISION_PROMPT
 
-        def call(model: str) -> IngredientsResponse:
+        def call(model: str) -> tuple[IngredientsResponse, types.GenerateContentResponse]:
             response = self.client.models.generate_content(
                 model=model,
                 contents=[
@@ -95,9 +134,35 @@ class GeminiClient:
             )
             if not response.text:
                 raise UpstreamAIError(message="Gemini Vision devolvió una respuesta vacía")
-            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text))
+            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text)), response
 
-        return self._with_fallback(call)
+        raw, _ = self._with_fallback(call)
+        return raw
+
+    def detect_ingredients_with_usage(self, image_bytes: bytes, mime_type: str) -> GeminiResponse:
+        """Envía una imagen a Gemini Vision y retorna ingredientes + metadatos de uso."""
+        prompt = _VISION_PROMPT
+
+        def call(model: str) -> tuple[IngredientsResponse, types.GenerateContentResponse]:
+            response = self.client.models.generate_content(
+                model=model,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+                    prompt,
+                ],
+                config=types.GenerateContentConfig(
+                    temperature=0.2,
+                    max_output_tokens=676,
+                    response_mime_type="application/json",
+                ),
+            )
+            if not response.text:
+                raise UpstreamAIError(message="Gemini Vision devolvió una respuesta vacía")
+            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text)), response
+
+        raw, response = self._with_fallback(call)
+        input_tokens, output_tokens = _extract_usage(response)
+        return GeminiResponse(data=raw, input_tokens=input_tokens, output_tokens=output_tokens, model_used=response.model_version if hasattr(response, 'model_version') else None)
 
     def generate_embeddings(self, texts: list[str], model: str | None = None) -> list[list[float]]:
         embedding_model = model or settings.GEMINI_EMBEDDING_MODEL

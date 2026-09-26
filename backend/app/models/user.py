@@ -10,6 +10,7 @@ from app.models.base import Base, TimestampMixin
 if TYPE_CHECKING:
     from app.models.scan import Scan
     from app.models.user_preference import UserPreference
+    from app.models.ai_usage import AIUsageLog, UserDailyLimit
 
 
 class User(TimestampMixin, Base):
@@ -24,6 +25,8 @@ class User(TimestampMixin, Base):
         cascade="all, delete-orphan",
     )
     scans: Mapped[list["Scan"]] = relationship(back_populates="user")
+    ai_usage_logs: Mapped[list["AIUsageLog"]] = relationship(back_populates="user")
+    daily_limits: Mapped[list["UserDailyLimit"]] = relationship(back_populates="user")
 
     def __repr__(self) -> str:  # pragma: no cover
         return f"<User id={self.id} email={self.email!r}>"

@@ -1,10 +1,14 @@
 """Caso de uso: escaneo de imagen → detección → confirmación de ingredientes."""
 
+from datetime import datetime, timezone
 from fastapi import UploadFile
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
+from app.core.exceptions import RateLimitExceededError
 from app.core.logging import get_logger
 from app.core.security import read_upload_safely, sanitize_filename, validate_image_size_and_mime
+from app.models.ai_usage import AIUsageLog, UserDailyLimit
 from app.repositories.scan_repository import ScanRepository
 from app.schemas.ingredient import ConfirmIngredientsResponse
 from app.schemas.scan import DetectedIngredientOut, ScanResponse
@@ -19,7 +23,71 @@ class ScanService:
     def __init__(self) -> None:
         self.vision = GeminiVisionClient()
 
-    def detect(self, file: UploadFile, db: Session) -> ScanResponse:
+    def _check_rate_limit(self, db: Session, user_id: int | None, session_id: str | None) -> None:
+        """Verifica límites diarios de análisis de imágenes."""
+        if user_id is None and session_id is None:
+            return  # Sin identificación, no se aplica límite
+
+        today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        query = db.query(UserDailyLimit).filter(UserDailyLimit.date == today)
+        if user_id is not None:
+            query = query.filter(UserDailyLimit.user_id == user_id)
+        else:
+            query = query.filter(UserDailyLimit.session_id == session_id)
+
+        daily_limit = query.first()
+        if daily_limit and daily_limit.image_analyses_count >= settings.MAX_IMAGE_ANALYSES_PER_USER_DAY:
+            raise RateLimitExceededError(
+                message=f"Límite diario de análisis de imágenes alcanzado ({settings.MAX_IMAGE_ANALYSES_PER_USER_DAY} por día)",
+                details={"limit": settings.MAX_IMAGE_ANALYSES_PER_USER_DAY, "type": "image_analysis"}
+            )
+        if daily_limit and daily_limit.total_ai_requests >= settings.MAX_AI_REQUESTS_PER_DAY:
+            raise RateLimitExceededError(
+                message=f"Límite diario total de IA alcanzado ({settings.MAX_AI_REQUESTS_PER_DAY} por día)",
+                details={"limit": settings.MAX_AI_REQUESTS_PER_DAY, "type": "total"}
+            )
+
+    def _increment_usage(self, db: Session, user_id: int | None, session_id: str | None, model: str, input_tokens: int | None, output_tokens: int | None, cost: float | None) -> None:
+        """Incrementa contadores de uso y registra log."""
+        today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        query = db.query(UserDailyLimit).filter(UserDailyLimit.date == today)
+        if user_id is not None:
+            query = query.filter(UserDailyLimit.user_id == user_id)
+        else:
+            query = query.filter(UserDailyLimit.session_id == session_id)
+
+        daily_limit = query.first()
+        if not daily_limit:
+            daily_limit = UserDailyLimit(
+                user_id=user_id,
+                session_id=session_id,
+                date=today,
+                image_analyses_count=0,
+                healthy_generations_count=0,
+                total_ai_requests=0,
+            )
+            db.add(daily_limit)
+
+        daily_limit.image_analyses_count += 1
+        daily_limit.total_ai_requests += 1
+
+        # Log de uso
+        usage_log = AIUsageLog(
+            user_id=user_id,
+            session_id=session_id,
+            operation_type="image_analysis",
+            model_used=model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            estimated_cost_usd=cost,
+            status="success",
+        )
+        db.add(usage_log)
+
+    def detect(self, file: UploadFile, db: Session, user_id: int | None = None, session_id: str | None = None) -> ScanResponse:
+        # Verificar rate limit
+        self._check_rate_limit(db, user_id, session_id)
+
         content_type = file.content_type
         validated_file = file.file
         content = read_upload_safely(validated_file)
@@ -28,7 +96,12 @@ class ScanService:
         if content_type is None:
             content_type = "image/jpeg"
 
-        detected = self.vision.detect_ingredients(content, content_type)
+        # Comprimir imagen si es muy grande (máx 1024x1024)
+        content = self._compress_image_if_needed(content)
+
+        # Detectar ingredientes con tracking de uso
+        vision_response = self.vision.detect_ingredients_with_usage(content, content_type)
+        detected = vision_response.data
 
         repo = ScanRepository(db)
         scan = repo.create(image_reference=sanitize_filename(file.filename))
@@ -41,12 +114,45 @@ class ScanService:
             )
         db.commit()
         logger.info("Scan #%s con %s ingredientes detectados", scan.id, len(detected))
+
+        # Estimar costo (aproximado para gemini-3.5-flash-lite: $0.075/1M input, $0.30/1M output)
+        input_tokens = vision_response.input_tokens or 0
+        output_tokens = vision_response.output_tokens or 0
+        cost_per_1m_input = 0.075  # USD por 1M tokens de entrada
+        cost_per_1m_output = 0.30   # USD por 1M tokens de salida
+        estimated_cost = (input_tokens / 1_000_000) * cost_per_1m_input + (output_tokens / 1_000_000) * cost_per_1m_output
+
+        # Registrar uso con tokens y costo
+        self._increment_usage(
+            db, user_id, session_id,
+            vision_response.model_used or settings.GEMINI_MODEL,
+            vision_response.input_tokens,
+            vision_response.output_tokens,
+            estimated_cost,
+        )
+
         return ScanResponse(
             scan_id=scan.id,
             detected_ingredients=[
                 DetectedIngredientOut(name=d.name, confidence=d.confidence) for d in detected
             ],
         )
+
+    def _compress_image_if_needed(self, image_bytes: bytes) -> bytes:
+        """Comprime la imagen si supera 1024x1024."""
+        try:
+            from PIL import Image
+            import io
+
+            img = Image.open(io.BytesIO(image_bytes))
+            if img.width > 1024 or img.height > 1024:
+                img.thumbnail((1024, 1024), Image.Resampling.LANCZOS)
+                output = io.BytesIO()
+                img.save(output, format=img.format or "JPEG", quality=85, optimize=True)
+                return output.getvalue()
+        except Exception:
+            pass  # Si falla, usar imagen original
+        return image_bytes
 
     def confirm(
         self, scan_id: int, ingredients: list[str], db: Session

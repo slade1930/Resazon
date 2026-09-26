@@ -62,3 +62,9 @@ class DatabaseError(AppError):
     http_status = 500
     code = "database_error"
     message = "Error al interactuar con la base de datos"
+
+
+class RateLimitExceededError(AppError):
+    http_status = 429
+    code = "rate_limit_exceeded"
+    message = "Límite de uso excedido"

@@ -53,6 +53,7 @@ export interface RecipeDetail {
   difficulty: string | null;
   panama_verified: boolean;
   source_url: string | null;
+  health_notes?: string[]; // Tips de recetas saludables (opcional, del backend)
 }
 
 export interface GenerateResponse {
@@ -67,6 +68,22 @@ export interface DetectedIngredient {
 export interface ScanResponse {
   scan_id: number;
   detected_ingredients: DetectedIngredient[];
+}
+
+export interface HealthyRecipeDetail {
+  recipe_name: string;
+  servings: number;
+  ingredients: RecipeIngredient[];
+  steps: string[];
+  preparation_time_minutes: number;
+  nutrition: {
+    calories: number | null;
+    protein_g: number | null;
+    carbs_g: number | null;
+    fat_g: number | null;
+    fiber_g: number | null;
+  };
+  health_notes: string[];
 }
 
 export interface PaginationMeta {
