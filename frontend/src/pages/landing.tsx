@@ -213,43 +213,43 @@ export function Landing() {
         >
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[68%] bg-gradient-to-t from-marino-dark via-marino-dark/75 to-transparent" />
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-end px-5 pb-14 pt-24 lg:pb-20">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-end px-4 pb-8 pt-20 sm:px-5 md:pb-10 lg:pb-20 lg:pt-24">
             <div className="text-center">
               <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-marino-dark/70 px-3.5 py-1.5 text-xs font-semibold text-maize shadow-xs backdrop-blur-sm">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-marino-dark/70 px-3 py-1 text-xs font-semibold text-maize shadow-xs backdrop-blur-sm sm:px-3.5 sm:py-1.5">
                   <span className="size-1.5 rounded-full bg-aji" />
                   {t("hero.badge")}
                 </span>
               </Reveal>
 
               <Reveal delay={0.05}>
-                <h1 className="mx-auto mt-6 max-w-3xl text-balance font-display text-[2.6rem] leading-[1.02] font-black tracking-tight text-white drop-shadow-lg sm:text-6xl lg:text-[4.15rem]">
+                <h1 className="mx-auto mt-4 max-w-3xl text-balance font-display text-4xl leading-[1.05] font-black tracking-tight text-white drop-shadow-lg sm:mt-6 sm:text-6xl lg:text-[4.15rem] lg:leading-[1.02]">
                   {t("hero.title1")}{" "}
                   <span className="underline-squiggle text-maize">{t("hero.titleAccent")}</span>
                 </h1>
               </Reveal>
 
               <Reveal delay={0.09}>
-                <p className="mt-4 flex flex-wrap items-baseline justify-center gap-x-2.5 font-hand text-2xl text-white drop-shadow-md sm:text-3xl">
+                <p className="mt-2 flex flex-wrap items-baseline justify-center gap-x-2.5 font-hand text-xl text-white drop-shadow-md sm:mt-4 sm:text-3xl">
                   <span className="font-bold text-aji">{t("hero.slogan1")}</span>
                   <span className="font-bold text-maize">{t("hero.slogan2")}</span>
                 </p>
               </Reveal>
 
               <Reveal delay={0.12}>
-                <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-white/90 drop-shadow-sm">
+                <p className="mx-auto mt-3 max-w-2xl text-pretty text-base leading-relaxed text-white/90 drop-shadow-sm sm:mt-5 sm:text-lg">
                   {t("hero.sub")}
                 </p>
               </Reveal>
 
               <Reveal delay={0.18}>
-                <div className="mx-auto mt-10 max-w-2xl rounded-t-[2rem] border border-b-0 border-primary-foreground/15 bg-background/85 p-5 shadow-lift backdrop-blur-md sm:p-6">
+                <div className="mx-auto mt-5 max-w-2xl rounded-t-[2rem] border border-b-0 border-primary-foreground/15 bg-background/85 p-4 shadow-lift backdrop-blur-md sm:mt-10 sm:p-6">
                   <IngredientPicker
                     value={ingredients}
                     onChange={setIngredients}
                     autoFocus
                   />
-                  <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:mt-4">
                     <Button
                       size="lg"
                       onClick={() => runSearch(ingredients)}

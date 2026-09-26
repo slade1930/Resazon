@@ -45,16 +45,31 @@ function LanguageSwitcher({ className }: { className?: string }) {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useI18n();
 
   useEffect(() => setOpen(false), [location.pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b border-transparent transition-all duration-200 md:bg-background/80 md:backdrop-blur-xl",
+        scrolled || open
+          ? "bg-background/85 backdrop-blur-xl md:border-border/70"
+          : "bg-transparent md:border-border/70",
+      )}
+    >
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 md:h-20">
         <Link to="/" aria-label={t("aria.home")}>
-          <Logo className="h-16" />
+          <Logo className="h-12 md:h-16" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
