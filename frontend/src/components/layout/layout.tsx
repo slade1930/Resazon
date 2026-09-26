@@ -22,7 +22,7 @@ export function Layout() {
         className="pointer-events-none fixed inset-0 -z-[4] bg-background/55"
       />
       <Header />
-      <main className="relative flex flex-1 flex-col">
+      <main className="relative flex flex-1 flex-col [&>*]:min-w-0">
         <Outlet />
       </main>
       <Footer />

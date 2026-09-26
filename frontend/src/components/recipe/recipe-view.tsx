@@ -46,7 +46,7 @@ export function RecipeView({ recipe }: { recipe: RecipeDetail }) {
 
   return (
     <>
-      <div className="relative aspect-[2.1/1] overflow-hidden rounded-3xl border border-border shadow-lift sm:aspect-[2.6/1]">
+      <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-lift sm:aspect-[2.6/1]">
         {photo ? (
           <img src={photo} alt={recipe.name} className="absolute inset-0 size-full object-cover" />
         ) : (
@@ -76,7 +76,7 @@ export function RecipeView({ recipe }: { recipe: RecipeDetail }) {
               )}
               {recipe.category && <Badge variant="outline" className="bg-black/20 text-white">{recipe.category}</Badge>}
             </div>
-            <h1 className="text-balance font-display text-4xl font-black text-white drop-shadow-sm sm:text-5xl">
+            <h1 className="break-words text-balance font-display text-3xl font-black text-white drop-shadow-sm sm:text-5xl">
               {recipe.name}
             </h1>
           </div>
@@ -99,7 +99,7 @@ export function RecipeView({ recipe }: { recipe: RecipeDetail }) {
         </p>
       )}
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_1fr]">
+      <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,0.85fr)_1fr]">
         <div>
           <Card className="h-full">
             <div className="flex items-center justify-between p-6 pb-4">
@@ -115,8 +115,8 @@ export function RecipeView({ recipe }: { recipe: RecipeDetail }) {
                   <span className="grid size-6 shrink-0 place-items-center rounded-full border border-border bg-secondary/50">
                     <Check className="size-3.5 text-culantro" />
                   </span>
-                  <div className="flex-1">
-                    <span className="text-[15px] font-medium">{ing.name}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="break-words text-[15px] font-medium">{ing.name}</span>
                     {ing.is_optional && (
                       <span className="ml-2 text-[11px] uppercase tracking-wide text-muted-foreground">
                         {t("view.optional")}
@@ -174,7 +174,7 @@ export function RecipeView({ recipe }: { recipe: RecipeDetail }) {
                   <span className="grid size-[42px] shrink-0 place-items-center rounded-full bg-culantro font-display text-lg font-bold text-primary-foreground shadow-soft">
                     {i + 1}
                   </span>
-                  <p className="pt-2 text-[15px] leading-relaxed text-pretty">{step}</p>
+                  <p className="min-w-0 break-words pt-2 text-[15px] leading-relaxed text-pretty">{step}</p>
                 </li>
               ))}
             </ol>
