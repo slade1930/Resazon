@@ -2,6 +2,8 @@
 
 from pydantic import BaseModel, Field
 
+from app.schemas.recipe import RecipeSummary
+
 
 class DetectedIngredientOut(BaseModel):
     name: str
@@ -11,3 +13,4 @@ class DetectedIngredientOut(BaseModel):
 class ScanResponse(BaseModel):
     scan_id: int
     detected_ingredients: list[DetectedIngredientOut]
+    traditional_recipes: list[RecipeSummary] = Field(default=list)

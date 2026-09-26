@@ -12,6 +12,8 @@ from google.genai import types
 from app.core.config import settings
 from app.core.exceptions import AINotConfiguredError, UpstreamAIError
 from app.vision.schemas import IngredientsResponse
+from app.vision.ingredient_normalizer import normalize_ingredient
+from app.schemas.scan import DetectedIngredientOut
 
 T = TypeVar("T")
 
@@ -162,7 +164,28 @@ class GeminiClient:
 
         raw, response = self._with_fallback(call)
         input_tokens, output_tokens = _extract_usage(response)
-        return GeminiResponse(data=raw, input_tokens=input_tokens, output_tokens=output_tokens, model_used=response.model_version if hasattr(response, 'model_version') else None)
+
+        from app.vision.ingredient_normalizer import normalize_ingredient
+        from app.schemas.scan import DetectedIngredientOut
+
+        normalized_results: list[DetectedIngredientOut] = []
+        for item in raw.ingredients:
+            normalized = normalize_ingredient(item.name)
+            if not normalized:
+                continue
+            normalized_results.append(
+                DetectedIngredientOut(
+                    name=normalized,
+                    confidence=item.confidence,
+                )
+            )
+
+        return GeminiResponse(
+            data=normalized_results,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            model_used=response.model_version if hasattr(response, 'model_version') else None
+        )
 
     def generate_embeddings(self, texts: list[str], model: str | None = None) -> list[list[float]]:
         embedding_model = model or settings.GEMINI_EMBEDDING_MODEL
@@ -211,9 +234,12 @@ Reglas:
 - Devuelve SOLO JSON con el siguiente esquema exacto:
 {"ingredients": [{"name": "string", "confidence": 0.0-1.0}]}
 - Nombres en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado").
-- No inventes ingredientes que no estén claramente visibles.
-- confidence ≥ 0.5 solo para ingredientes seguros; baja para los dudosos.
-- Máximo 15 ingredientes."""
+- Si ves un paquete de harina, polvo de hornear, pasta de tomate, salsa, etc., detecta el ingrediente principal (harina, salsa de tomate, etc.).
+- Si ves un empaque con etiqueta legible, lee el nombre del producto y conviértelo al ingrediente base.
+- NO inventes ingredientes que no estén en la imagen.
+- confidence ≥ 0.6 para ingredientes seguros; 0.4-0.6 para dudosos; < 0.4 NO incluir.
+- Máximo 12 ingredientes.
+- Si la imagen no contiene alimentos claros, devuelve {"ingredients": []}."""
 
 
 def get_vision_prompt() -> str:

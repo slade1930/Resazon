@@ -13,6 +13,7 @@ class ScanRepository:
     def create(self, image_reference: str | None = None) -> Scan:
         scan = Scan(image_reference=image_reference)
         self.db.add(scan)
+        self.db.flush()
         return scan
 
     def get(self, scan_id: int) -> Scan | None:

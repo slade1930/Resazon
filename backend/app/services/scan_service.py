@@ -101,7 +101,7 @@ class ScanService:
 
         # Detectar ingredientes con tracking de uso
         vision_response = self.vision.detect_ingredients_with_usage(content, content_type)
-        detected = vision_response.data
+        detected = [d for d in vision_response.data if d.confidence >= 0.5]
 
         repo = ScanRepository(db)
         scan = repo.create(image_reference=sanitize_filename(file.filename))
@@ -131,27 +131,33 @@ class ScanService:
             estimated_cost,
         )
 
+        # Buscar recetas tradicionales coincidentes en la misma llamada
+        from app.services.recipe_service import RecipeService
+        recipe_service = RecipeService(db)
+        search_result = recipe_service.search_traditional([d.name for d in detected])
+
         return ScanResponse(
             scan_id=scan.id,
             detected_ingredients=[
                 DetectedIngredientOut(name=d.name, confidence=d.confidence) for d in detected
             ],
+            traditional_recipes=search_result.recipes,
         )
 
     def _compress_image_if_needed(self, image_bytes: bytes) -> bytes:
-        """Comprime la imagen si supera 1024x1024."""
+        """Comprime la imagen a máx 800x800 para velocidad de análisis."""
         try:
             from PIL import Image
             import io
 
             img = Image.open(io.BytesIO(image_bytes))
-            if img.width > 1024 or img.height > 1024:
-                img.thumbnail((1024, 1024), Image.Resampling.LANCZOS)
+            if img.width > 800 or img.height > 800:
+                img.thumbnail((800, 800), Image.Resampling.LANCZOS)
                 output = io.BytesIO()
-                img.save(output, format=img.format or "JPEG", quality=85, optimize=True)
+                img.save(output, format="JPEG", quality=80, optimize=True)
                 return output.getvalue()
         except Exception:
-            pass  # Si falla, usar imagen original
+            pass
         return image_bytes
 
     def confirm(

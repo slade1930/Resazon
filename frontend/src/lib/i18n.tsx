@@ -248,7 +248,7 @@ const ES: Record<string, string> = {
   "footer.enjoy": "¡Buen provecho!",
 
   // ── Ingredient picker ──
-  "picker.placeholder": "Escribe un ingrediente y presiona Enter…",
+  "picker.placeholder": "Escribe un ingrediente…",
   "picker.add": "Añadir",
   "picker.addIngredient": "Añadir ingrediente",
   "picker.countOne": "{n} ingrediente",

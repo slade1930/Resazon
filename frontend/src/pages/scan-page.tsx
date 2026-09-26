@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Badge } from "@/components/ui/badge";
@@ -170,7 +170,7 @@ function HealthyRecipeView({ recipe, t }: { recipe: RecipeDetail; t: (k: string,
           )}
 
           <div className="pt-4 border-t border-border">
-            <Link to={`/recetas/${0}`}>
+            <Link to="/generar">
               <Button size="lg" className="w-full rounded-full bg-aji" variant="default">
                 <Heart className="size-4 mr-2" /> {t("scan.viewRecipe")}
               </Button>
@@ -192,54 +192,92 @@ export function ScanPage() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [cameraLoading, setCameraLoading] = useState(false);
 
   const { t: tRaw } = useI18n();
   const t = tRaw as (key: string, vars?: Record<string, string | number>) => string;
 
-  const startCamera = useCallback(async () => {
-    setCameraError(null);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-      }
-      setCameraActive(true);
-    } catch (e) {
-      setCameraError(t("scan.permissionDenied"));
-      if ((e as DOMException).name === "NotFoundError" || (e as DOMException).name === "OverconstrainedError") {
-        setCameraError(t("scan.cameraNotAvailable"));
-      }
-    }
-  }, [t]);
-
   const stopCamera = useCallback(() => {
-    if (videoRef.current?.srcObject) {
-      (videoRef.current.srcObject as MediaStream).getTracks().forEach((track) => track.stop());
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+    if (videoRef.current) {
       videoRef.current.srcObject = null;
     }
     setCameraActive(false);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, []);
+
+  const startCamera = useCallback(async () => {
+    setCameraError(null);
+    setCameraLoading(true);
+    try {
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: false,
+        });
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: false,
+        });
+      }
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.muted = true;
+        await videoRef.current.play();
+      }
+      setCameraActive(true);
+    } catch (e) {
+      const err = e as DOMException;
+      if (err.name === "NotFoundError" || err.name === "OverconstrainedError") {
+        setCameraError(t("scan.cameraNotAvailable"));
+      } else if (err.name === "NotAllowedError") {
+        setCameraError(t("scan.permissionDenied"));
+      } else {
+        setCameraError(t("scan.cameraNotAvailable"));
+      }
+    } finally {
+      setCameraLoading(false);
+    }
+  }, [t]);
+
   const takePhoto = useCallback(() => {
-    if (!videoRef.current) return;
-    const canvas = document.createElement("canvas");
     const video = videoRef.current;
+    if (!video || !video.videoWidth || !video.videoHeight) return;
+
+    const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob((blob) => {
+    if (!ctx) return;
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(
+      (blob) => {
         if (blob) {
-          const file = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
-          onFile(file);
+          const photo = new File([blob], "camera-photo.jpg", { type: "image/jpeg" });
+          onFile(photo);
           stopCamera();
         }
-      }, "image/jpeg", 0.9);
-    }
+      },
+      "image/jpeg",
+      0.9,
+    );
   }, [stopCamera]);
 
   function onFile(next: File | null) {
@@ -248,6 +286,9 @@ export function ScanPage() {
       setError(t("scan.onlyImages"));
       return;
     }
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
     setError(null);
     setCameraError(null);
     setFile(next);
@@ -255,6 +296,16 @@ export function ScanPage() {
     setRecipeType("traditional");
     setPreview(URL.createObjectURL(next));
     if (cameraActive) stopCamera();
+  }
+
+  function clearFile() {
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
+    setFile(null);
+    setPreview(null);
+    setResults(null);
+    setError(null);
   }
 
   async function detect() {
@@ -268,7 +319,7 @@ export function ScanPage() {
         scanId: res.scan_id,
         detectedIngredients: detected,
         recipeType,
-        traditionalRecipes: undefined,
+        traditionalRecipes: res.traditional_recipes,
         healthyRecipe: undefined,
       });
     } catch (e) {
@@ -289,37 +340,32 @@ export function ScanPage() {
     setRecipeType(newType);
     const baseResults = { ...results, recipeType: newType };
 
-    if (newType === "traditional") {
-      if (!baseResults.traditionalRecipes) {
-        const names = baseResults.detectedIngredients.map((d) => d.name);
-        try {
-          const res = await api.searchRecipes(names, baseResults.scanId);
-          baseResults.traditionalRecipes = res.recipes;
-        } catch {
-          baseResults.traditionalRecipes = [];
-        }
+    if (newType === "traditional" && !baseResults.traditionalRecipes) {
+      const names = baseResults.detectedIngredients.map((d) => d.name);
+      try {
+        const res = await api.searchRecipes(names, baseResults.scanId);
+        baseResults.traditionalRecipes = res.recipes;
+      } catch {
+        baseResults.traditionalRecipes = [];
       }
-    } else {
-      if (!baseResults.healthyRecipe) {
-        const names = baseResults.detectedIngredients.map((d) => d.name);
-        try {
-          const res = await api.healthy(names);
-          baseResults.healthyRecipe = res.recipe;
-        } catch {
-          baseResults.healthyRecipe = undefined;
-        }
+    } else if (newType === "healthy" && !baseResults.healthyRecipe) {
+      const names = baseResults.detectedIngredients.map((d) => d.name);
+      try {
+        const res = await api.healthy(names);
+        baseResults.healthyRecipe = res.recipe;
+      } catch {
+        baseResults.healthyRecipe = undefined;
       }
     }
     setResults(baseResults);
   }
 
-  // --- Renderizado por estados ---
   const showCamera = !file && !results && !detecting;
   const showTypeSelector = file && !results && !detecting;
   const showResults = !!results;
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10">
+    <div className="mx-auto max-w-3xl px-4 py-6 sm:px-5 sm:py-10">
       <Link to="/" className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
         <ArrowLeft className="size-4" /> {t("back.volver")}
       </Link>
@@ -328,41 +374,80 @@ export function ScanPage() {
         <span className="inline-flex items-center gap-2 rounded-full bg-culantro/12 px-3.5 py-1.5 text-xs font-semibold text-culantro-dark">
           <Camera className="size-3.5" /> {t("scan.badge")}
         </span>
-        <h1 className="mt-4 font-display text-4xl font-black tracking-tight">{t("scan.title")}</h1>
-        <p className="mt-2 max-w-lg text-pretty text-muted-foreground">{t("scan.sub")}</p>
+        <h1 className="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl">{t("scan.title")}</h1>
+        <p className="mt-2 max-w-lg text-pretty text-sm text-muted-foreground sm:text-base">{t("scan.sub")}</p>
 
-        {/* Paso 1: Cámara o Archivo */}
         {showCamera && (
-          <div className="mt-8 space-y-4">
+          <div className="mt-6 space-y-4 sm:mt-8">
             <p className="text-center text-sm text-muted-foreground">{t("scan.chooseType")}</p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Button variant="outline" size="lg" className="rounded-2xl h-28 flex flex-col items-center gap-2" onClick={startCamera} disabled={cameraActive || !navigator.mediaDevices?.getUserMedia}>
-                <Camera className="size-7" />
-                <span className="font-medium">{t("scan.camera")}</span>
-                <span className="text-xs text-muted-foreground">{t("scan.cameraHint")}</span>
+            <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex h-24 flex-col items-center justify-center gap-1.5 rounded-2xl sm:h-28"
+                onClick={startCamera}
+                disabled={cameraActive || cameraLoading || !navigator.mediaDevices?.getUserMedia}
+              >
+                {cameraLoading ? (
+                  <Loader2 className="size-6 animate-spin" />
+                ) : (
+                  <Camera className="size-6 sm:size-7" />
+                )}
+                <span className="text-sm font-medium sm:text-base">{t("scan.camera")}</span>
+                <span className="text-center text-[11px] text-muted-foreground sm:text-xs">{t("scan.cameraHint")}</span>
               </Button>
-              <Button variant="outline" size="lg" className="rounded-2xl h-28 flex flex-col items-center gap-2" onClick={() => inputRef.current?.click()}>
-                <ImagePlus className="size-7" />
-                <span className="font-medium">{t("scan.upload")}</span>
-                <span className="text-xs text-muted-foreground">{t("scan.uploadHint")}</span>
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex h-24 flex-col items-center justify-center gap-1.5 rounded-2xl sm:h-28"
+                onClick={() => inputRef.current?.click()}
+              >
+                <ImagePlus className="size-6 sm:size-7" />
+                <span className="text-sm font-medium sm:text-base">{t("scan.upload")}</span>
+                <span className="text-center text-[11px] text-muted-foreground sm:text-xs">{t("scan.uploadHint")}</span>
               </Button>
             </div>
-            <input ref={inputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => onFile(e.target.files?.[0] ?? null)} />
-            {cameraError && <div className="rounded-xl border border-dashed border-aji/40 bg-aji-soft/40 p-4 text-center text-sm text-destructive">{cameraError}</div>}
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                onFile(e.target.files?.[0] ?? null);
+                e.target.value = "";
+              }}
+            />
+            {cameraError && (
+              <div className="rounded-xl border border-dashed border-aji/40 bg-aji-soft/40 p-4 text-center text-sm text-destructive">
+                {cameraError}
+              </div>
+            )}
           </div>
         )}
 
-        {/* Cámara activa */}
         {cameraActive && (
-          <div className="mt-8 space-y-4">
-            <div className="relative rounded-2xl overflow-hidden bg-black">
-              <video ref={videoRef} className="w-full max-h-[60vh] object-cover" autoPlay playsInline />
-              <div className="absolute inset-0 flex flex-col items-center justify-between p-4">
-                <p className="text-white/80 text-sm text-center">{t("scan.cameraHint")}</p>
-                <div className="flex gap-3">
-                  <Button variant="outline" size="lg" className="rounded-full bg-white/10 text-white border-white/20 hover:bg-white/20" onClick={stopCamera}>
+          <div className="mt-6 space-y-4 sm:mt-8">
+            <div className="relative overflow-hidden rounded-2xl bg-black">
+              <video
+                ref={videoRef}
+                className="mx-auto max-h-[50vh] w-full object-cover sm:max-h-[60vh]"
+                autoPlay
+                playsInline
+                muted
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-between p-3 sm:p-4">
+                <p className="rounded-full bg-black/50 px-3 py-1 text-center text-xs text-white/90 sm:text-sm">
+                  {t("scan.cameraHint")}
+                </p>
+                <div className="flex w-full items-center justify-center gap-2 sm:gap-3">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="rounded-full border-white/20 bg-white/10 text-white hover:bg-white/20"
+                    onClick={stopCamera}
+                  >
                     <X className="size-4" />
-                    <span>{t("scan.changePhoto")}</span>
+                    <span className="hidden sm:inline">{t("scan.changePhoto")}</span>
                   </Button>
                   <Button size="lg" className="rounded-full" onClick={takePhoto}>
                     <Camera className="size-4 mr-2" /> {t("scan.analyze")}
@@ -373,62 +458,92 @@ export function ScanPage() {
           </div>
         )}
 
-        {/* Vista previa + Selector tipo */}
         {showTypeSelector && (
-          <div className="mt-8 space-y-6">
-            <div className="relative rounded-2xl overflow-hidden">
-<img src={preview!} alt={t("scan.previewAlt")} className="mx-auto max-h-[26rem] w-full object-cover" />
-              <button onClick={(e) => { e.stopPropagation(); setFile(null); setPreview(null); }} className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-marino-dark/80 text-white backdrop-blur transition-colors hover:bg-aji" aria-label={t("scan.removeImage")}>
+          <div className="mt-6 space-y-5 sm:mt-8 sm:space-y-6">
+            <div className="relative overflow-hidden rounded-2xl">
+              <img
+                src={preview!}
+                alt={t("scan.previewAlt")}
+                className="mx-auto max-h-[20rem] w-full object-contain sm:max-h-[26rem]"
+              />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearFile();
+                }}
+                className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-marino-dark/80 text-white backdrop-blur transition-colors hover:bg-aji"
+                aria-label={t("scan.removeImage")}
+              >
                 <Trash2 className="size-4" />
               </button>
             </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-bold text-center mb-4">{t("scan.chooseType")}</h2>
+            <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
+              <h2 className="mb-4 text-center font-display text-lg font-bold sm:text-xl">{t("scan.chooseType")}</h2>
               <div className="grid gap-3 sm:grid-cols-2">
-                <Button variant={recipeType === "traditional" ? "default" : "outline"} size="lg" className="rounded-xl h-28 flex flex-col items-center gap-3 text-left" onClick={() => setRecipeType("traditional")}>
-                  <div className="flex items-center gap-2"><span className="text-3xl">🇵🇦</span><div><p className="font-semibold">{t("scan.typeTraditional")}</p><p className="text-xs text-muted-foreground">{t("scan.typeTraditionalDesc")}</p></div></div>
+                <Button
+                  variant={recipeType === "traditional" ? "default" : "outline"}
+                  size="lg"
+                  className="flex h-24 flex-col items-center justify-center gap-2 rounded-xl text-left sm:h-28"
+                  onClick={() => setRecipeType("traditional")}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl sm:text-3xl">🇵🇦</span>
+                    <div>
+                      <p className="text-sm font-semibold sm:text-base">{t("scan.typeTraditional")}</p>
+                      <p className="text-[11px] text-muted-foreground sm:text-xs">{t("scan.typeTraditionalDesc")}</p>
+                    </div>
+                  </div>
                   <Utensils className="size-5 text-culantro" />
                 </Button>
-                <Button variant={recipeType === "healthy" ? "default" : "outline"} size="lg" className="rounded-xl h-28 flex flex-col items-center gap-3 text-left" onClick={() => setRecipeType("healthy")}>
-                  <div className="flex items-center gap-2"><span className="text-3xl">🥗</span><div><p className="font-semibold">{t("scan.typeHealthy")}</p><p className="text-xs text-muted-foreground">{t("scan.typeHealthyDesc")}</p></div></div>
+                <Button
+                  variant={recipeType === "healthy" ? "default" : "outline"}
+                  size="lg"
+                  className="flex h-24 flex-col items-center justify-center gap-2 rounded-xl text-left sm:h-28"
+                  onClick={() => setRecipeType("healthy")}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl sm:text-3xl">🥗</span>
+                    <div>
+                      <p className="text-sm font-semibold sm:text-base">{t("scan.typeHealthy")}</p>
+                      <p className="text-[11px] text-muted-foreground sm:text-xs">{t("scan.typeHealthyDesc")}</p>
+                    </div>
+                  </div>
                   <Leaf className="size-5 text-aji" />
                 </Button>
               </div>
             </div>
             <Button size="lg" className="w-full rounded-full" onClick={detect} disabled={detecting}>
-              {detecting ? (<><Loader2 className="size-4 animate-spin mr-2" />{t("scan.analyzing")}</>) : (<><Sparkles className="size-4 mr-2" />{t("scan.analyze")}</>)}
+              {detecting ? (
+                <>
+                  <Loader2 className="size-4 animate-spin mr-2" />
+                  {t("scan.analyzing")}
+                </>
+              ) : (
+                <>
+                  <Sparkles className="size-4 mr-2" />
+                  {t("scan.analyze")}
+                </>
+              )}
             </Button>
           </div>
         )}
 
-        {/* Vista previa imagen subida */}
-        {file && preview && !cameraActive && !showTypeSelector && !showResults && !detecting && (
-          <div className="mt-8 relative rounded-2xl overflow-hidden">
-            <img src={preview!} alt={t("scan.previewAlt")} className="mx-auto max-h-[26rem] w-full object-cover" />
-            <button onClick={(e) => { e.stopPropagation(); setFile(null); setPreview(null); }} className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-marino-dark/80 text-white backdrop-blur transition-colors hover:bg-aji" aria-label={t("scan.removeImage")}><Trash2 className="size-4" /></button>
-          </div>
-        )}
-
-        {/* Errores */}
         {error && (
-          <div className="mt-5 rounded-2xl border border-dashed border-aji/40 bg-aji-soft/40 p-5 text-center">
+          <div className="mt-5 rounded-2xl border border-dashed border-aji/40 bg-aji-soft/40 p-4 text-center sm:p-5">
             <p className="text-sm font-medium text-destructive">{error}</p>
-            {file && !results && <Button variant="outline" className="mt-3 rounded-full" onClick={() => onFile(file)}>{t("scan.retryPhoto")}</Button>}
-            {results && <Button variant="outline" className="mt-3 rounded-full" onClick={detect}>{t("scan.retryPhoto")}</Button>}
+            {file && !results && (
+              <Button variant="outline" className="mt-3 rounded-full" onClick={() => onFile(file)}>
+                {t("scan.retryPhoto")}
+              </Button>
+            )}
+            {results && (
+              <Button variant="outline" className="mt-3 rounded-full" onClick={detect}>
+                {t("scan.retryPhoto")}
+              </Button>
+            )}
           </div>
         )}
 
-        {/* Detectando - botón antes de análisis */}
-        {file && !results && !showTypeSelector && !detecting && !cameraActive && (
-          <div className="mt-6 flex flex-wrap items-center gap-3 justify-center">
-            <Button size="lg" onClick={detect} disabled={detecting} className="rounded-full">
-              {detecting ? (<><Loader2 className="size-4 animate-spin mr-2" />{t("scan.detecting")}</>) : (<><Sparkles className="size-4 mr-2" />{t("scan.analyze")}</>)}
-            </Button>
-            <span className="text-sm text-muted-foreground self-center">{t("scan.geminiHint")}</span>
-          </div>
-        )}
-
-        {/* Detectando (loading) */}
         {detecting && (
           <div className="mt-8 flex flex-col items-center gap-4">
             <div className="mx-auto grid size-20 place-items-center rounded-full bg-maize-soft text-5xl animate-pulse">🍲</div>
@@ -437,47 +552,76 @@ export function ScanPage() {
           </div>
         )}
 
-        {/* RESULTADOS */}
         {showResults && results && (
-          <div className="mt-8 space-y-6">
-            {/* Ingredientes detectados */}
+          <div className="mt-6 space-y-6 sm:mt-8">
             <div className="rounded-2xl border border-border bg-card p-4">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <h2 className="font-display text-xl font-bold">{t("scan.resultsTitle")}</h2>
-                <Button variant="ghost" size="sm" onClick={() => { setFile(null); setPreview(null); setResults(null); }}>
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <h2 className="font-display text-lg font-bold sm:text-xl">{t("scan.resultsTitle")}</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    clearFile();
+                  }}
+                >
                   <ChevronLeft className="size-4 mr-1" /> {t("scan.changePhoto")}
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">
                 {results.detectedIngredients.map((d) => (
-                  <Badge key={d.name} variant={confidenceTone(d.confidence, t).cls.includes("culantro") ? "success" : confidenceTone(d.confidence, t).cls.includes("maize") ? "secondary" : "outline"} className="gap-1.5 py-1.5 px-3 text-sm">
-                    <span className="rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-culantro/20 text-culantro-dark">{confidenceTone(d.confidence, t).label}</span> {d.name}
+                  <Badge
+                    key={`${d.name}-${d.confidence}`}
+                    variant={
+                      confidenceTone(d.confidence, t).cls.includes("culantro")
+                        ? "success"
+                        : confidenceTone(d.confidence, t).cls.includes("maize")
+                          ? "secondary"
+                          : "outline"
+                    }
+                    className="gap-1.5 px-3 py-1.5 text-sm"
+                  >
+                    <span className="rounded-full bg-culantro/20 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-culantro-dark">
+                      {confidenceTone(d.confidence, t).label}
+                    </span>{" "}
+                    {d.name}
                   </Badge>
                 ))}
               </div>
             </div>
 
-            {/* Selector tipo en resultados */}
             <div className="flex gap-2">
-              <Button variant={recipeType === "traditional" ? "default" : "outline"} className="flex-1 rounded-xl py-3 flex items-center justify-center gap-2" onClick={() => changeRecipeType("traditional")} disabled={results.recipeType === "traditional"}>
+              <Button
+                variant={recipeType === "traditional" ? "default" : "outline"}
+                className="flex-1 rounded-xl py-3 flex items-center justify-center gap-2"
+                onClick={() => changeRecipeType("traditional")}
+                disabled={results.recipeType === "traditional"}
+              >
                 <Utensils className="size-4" /> <span>{t("scan.typeTraditional")}</span>
               </Button>
-              <Button variant={recipeType === "healthy" ? "default" : "outline"} className="flex-1 rounded-xl py-3 flex items-center justify-center gap-2" onClick={() => changeRecipeType("healthy")} disabled={results.recipeType === "healthy"}>
+              <Button
+                variant={recipeType === "healthy" ? "default" : "outline"}
+                className="flex-1 rounded-xl py-3 flex items-center justify-center gap-2"
+                onClick={() => changeRecipeType("healthy")}
+                disabled={results.recipeType === "healthy"}
+              >
                 <Leaf className="size-4" /> <span>{t("scan.typeHealthy")}</span>
               </Button>
             </div>
 
-            {/* Resultados Tradicionales */}
             {recipeType === "traditional" && (
               <div className="space-y-4">
-                <h2 className="font-display text-2xl font-bold">{t("scan.traditionalTitle")}</h2>
+                <h2 className="font-display text-xl font-bold sm:text-2xl">{t("scan.traditionalTitle")}</h2>
                 <p className="text-sm text-muted-foreground">{t("scan.traditionalSub")}</p>
 
                 {results.traditionalRecipes === undefined ? (
-                  <div className="flex justify-center py-8"><Loader2 className="size-8 animate-spin text-culantro" /></div>
+                  <div className="flex justify-center py-8">
+                    <Loader2 className="size-8 animate-spin text-culantro" />
+                  </div>
                 ) : results.traditionalRecipes && results.traditionalRecipes.length > 0 ? (
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {results.traditionalRecipes.map((recipe) => <TraditionalRecipeCard key={recipe.id ?? recipe.name} recipe={recipe} t={t} />)}
+                    {results.traditionalRecipes.map((recipe) => (
+                      <TraditionalRecipeCard key={recipe.id ?? recipe.name} recipe={recipe} t={t} />
+                    ))}
                   </div>
                 ) : (
                   <div className="rounded-2xl border border-border bg-card p-8 text-center">
@@ -494,17 +638,20 @@ export function ScanPage() {
               </div>
             )}
 
-            {/* Resultados Saludables */}
             {recipeType === "healthy" && (
               <div className="space-y-4">
                 {results.healthyRecipe === undefined && results.recipeType === "healthy" ? (
-                  <div className="flex justify-center py-8"><Loader2 className="size-8 animate-spin text-aji" /></div>
+                  <div className="flex justify-center py-8">
+                    <Loader2 className="size-8 animate-spin text-aji" />
+                  </div>
                 ) : results.healthyRecipe ? (
                   <HealthyRecipeView recipe={results.healthyRecipe} t={t} />
                 ) : (
                   <div className="rounded-2xl border border-dashed border-aji/40 bg-aji-soft/40 p-8 text-center">
                     <p className="font-display text-xl font-bold text-destructive">{t("scan.error")}</p>
-                    <Button variant="outline" className="mt-4 rounded-full" onClick={() => changeRecipeType("healthy")}>{t("scan.retryPhoto")}</Button>
+                    <Button variant="outline" className="mt-4 rounded-full" onClick={() => changeRecipeType("healthy")}>
+                      {t("scan.retryPhoto")}
+                    </Button>
                   </div>
                 )}
               </div>

@@ -194,7 +194,7 @@ export function Landing() {
   return (
     <>
       {/* ============ HERO: corredor de recetas, título abajo ============ */}
-      <section className="relative flex min-h-[92svh] flex-col justify-end overflow-hidden lg:min-h-[96svh]">
+      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden lg:min-h-[96svh]">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/70" />
 
         <ImageStreamHero
@@ -213,7 +213,7 @@ export function Landing() {
         >
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[68%] bg-gradient-to-t from-marino-dark via-marino-dark/75 to-transparent" />
 
-          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-end px-4 pb-8 pt-20 sm:px-5 md:pb-10 lg:pb-20 lg:pt-24">
+          <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-end px-4 pb-8 pt-24 sm:px-5 md:pb-10 lg:pb-20 lg:pt-24">
             <div className="text-center">
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-marino-dark/70 px-3 py-1 text-xs font-semibold text-maize shadow-xs backdrop-blur-sm sm:px-3.5 sm:py-1.5">
@@ -243,13 +243,13 @@ export function Landing() {
               </Reveal>
 
               <Reveal delay={0.18}>
-                <div className="mx-auto mt-5 max-w-2xl rounded-t-[2rem] border border-b-0 border-primary-foreground/15 bg-background/85 p-4 shadow-lift backdrop-blur-md sm:mt-10 sm:p-6">
+                <div className="mx-auto mt-4 w-full max-w-2xl rounded-t-[2rem] border border-b-0 border-primary-foreground/15 bg-background/85 p-3 shadow-lift backdrop-blur-md sm:mt-10 sm:p-6">
                   <IngredientPicker
                     value={ingredients}
                     onChange={setIngredients}
                     autoFocus
                   />
-                  <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:mt-4">
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:mt-4 sm:gap-3">
                     <Button
                       size="lg"
                       onClick={() => runSearch(ingredients)}
@@ -261,7 +261,7 @@ export function Landing() {
                     </Button>
                     <Link
                       to="/escanear"
-                      className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-card px-6 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-muted"
+                      className="inline-flex h-12 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-muted sm:px-6"
                     >
                       <Camera className="size-4" />
                       {t("hero.scanAlt")}

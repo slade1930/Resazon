@@ -68,6 +68,7 @@ export interface DetectedIngredient {
 export interface ScanResponse {
   scan_id: number;
   detected_ingredients: DetectedIngredient[];
+  traditional_recipes: RecipeSummary[];
 }
 
 export interface HealthyRecipeDetail {
