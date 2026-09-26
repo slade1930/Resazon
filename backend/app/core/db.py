@@ -8,8 +8,17 @@ from sqlalchemy.pool import NullPool
 
 from app.core.config import settings
 
+
+def _normalize_driver(url: str) -> str:
+    """Fuerza el dialecto psycopg2. SQLAlchemy >=2.1 mapea `postgresql://`
+    a psycopg v3 (no instalado), mientras el proyecto usa psycopg2-binary."""
+    if url.startswith("postgresql://") and "+psycopg2" not in url:
+        return url.replace("postgresql://", "postgresql+psycopg2://", 1)
+    return url
+
+
 engine = create_engine(
-    settings.DATABASE_URL,
+    _normalize_driver(settings.DATABASE_URL),
     pool_pre_ping=True,
     poolclass=NullPool,
     future=True,
