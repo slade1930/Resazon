@@ -24,6 +24,16 @@ def test_stopwords_removed():
     assert normalize_ingredient("sal al gusto") == ""
 
 
+def test_container_prefix_stripped():
+    assert normalize_ingredient("lata de leche") == "leche"
+    assert normalize_ingredient("lata de leche condensada") == "leche condensada"
+    assert normalize_ingredient("lata de leche evaporada") == "leche evaporada"
+    assert normalize_ingredient("caja de leche") == "leche"
+    assert normalize_ingredient("tarro de leche") == "leche"
+    assert normalize_ingredient("paquete de harina") == "harina"
+    assert normalize_ingredient("bolsa de maíz para chicheme") == "maiz"
+
+
 def test_normalize_list_dedupes():
     result = normalize_list(["huevo", "Huevos", "aji", "tomate"])
     assert result == ["huevo", "aji", "tomate"]

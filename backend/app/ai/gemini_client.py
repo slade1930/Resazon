@@ -1,5 +1,7 @@
 """Cliente único y genérico hacia Gemini (texto + visión)."""
 
+import json
+import re
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -11,7 +13,7 @@ from google.genai import types
 
 from app.core.config import settings
 from app.core.exceptions import AINotConfiguredError, UpstreamAIError
-from app.vision.schemas import IngredientsResponse
+from app.vision.schemas import DetectedIngredient, IngredientsResponse
 
 T = TypeVar("T")
 
@@ -134,7 +136,7 @@ class GeminiClient:
             )
             if not response.text:
                 raise UpstreamAIError(message="Gemini Vision devolvió una respuesta vacía")
-            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text)), response
+            return _parse_ingredients_response(response.text), response
 
         raw, _ = self._with_fallback(call)
         return raw
@@ -158,7 +160,7 @@ class GeminiClient:
             )
             if not response.text:
                 raise UpstreamAIError(message="Gemini Vision devolvió una respuesta vacía")
-            return IngredientsResponse.model_validate_json(_strip_code_fence(response.text)), response
+            return _parse_ingredients_response(response.text), response
 
         raw, response = self._with_fallback(call)
         input_tokens, output_tokens = _extract_usage(response)
@@ -214,6 +216,74 @@ def _strip_code_fence(text: str) -> str:
     return cleaned.strip()
 
 
+def _coerce_ingredient_name(value: object) -> str:
+    if isinstance(value, str):
+        return re.sub(r"\s+", " ", value.strip())[:80]
+    return ""
+
+
+def _coerce_ingredient_confidence(value: object) -> float:
+    try:
+        conf = float(value)
+    except (TypeError, ValueError):
+        return 0.5
+    return min(1.0, max(0.0, conf))
+
+
+def _parse_ingredients_response(raw_text: str) -> IngredientsResponse:
+    """Parsea la respuesta de Gemini Vision de forma tolerante.
+
+    1) Intenta el esquema estricto (pydantic). 2) Si falla, extrae la lista de
+    ingredientes a mano (soporta claves en español y valores sucios). 3) Ante
+    una respuesta inutilizable devuelve lista vacía. NUNCA lanza: así ninguna
+    foto (lata, etiqueta, etc.) provoca un error 500.
+    """
+    text = _strip_code_fence(raw_text or "")
+    if not text:
+        return IngredientsResponse(ingredients=[])
+
+    try:
+        return IngredientsResponse.model_validate_json(text)
+    except Exception:  # noqa: BLE001 - validación estricta; seguimos tolerante
+        pass
+
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find("{")
+        end = text.rfind("}")
+        if start == -1 or end <= start:
+            return IngredientsResponse(ingredients=[])
+        try:
+            data = json.loads(text[start : end + 1])
+        except json.JSONDecodeError:
+            return IngredientsResponse(ingredients=[])
+
+    if not isinstance(data, dict):
+        return IngredientsResponse(ingredients=[])
+
+    for key in ("ingredients", "ingredientes", "alimentos", "items", "detected"):
+        raw = data.get(key)
+        if not isinstance(raw, list):
+            continue
+        items: list[DetectedIngredient] = []
+        for entry in raw:
+            if isinstance(entry, str):
+                name, conf = entry, 0.5
+            elif isinstance(entry, dict):
+                name = entry.get("name") or entry.get("nombre")
+                conf = entry.get("confidence") if entry.get("confidence") is not None else entry.get("confianza")
+            else:
+                continue
+            name = _coerce_ingredient_name(name)
+            if name:
+                items.append(DetectedIngredient(name=name, confidence=_coerce_ingredient_confidence(conf)))
+        if items:
+            return IngredientsResponse(ingredients=items)
+
+    return IngredientsResponse(ingredients=[])
+
+
 def ai_available() -> bool:
     return settings.GEMINI_AI_ENABLED and bool(settings.GEMINI_API_KEY)
 
@@ -232,10 +302,16 @@ Reglas estrictas:
 - Devuelve EXCLUSIVAMENTE JSON con este esquema exacto (sin texto adicional):
 {"ingredients": [{"name": "string", "confidence": 0.0-1.0}]}
 - Detecta solo alimentos reales visibles: arroz, pollo, tomate, plátano, yuca, etc.
-- Nombres simples en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado").
+- Identifica el OBJETO y su TIPO específico: si ves un empaque (lata, tarro, caja, tetra pak, bolsa, sobre), di qué es el ingrediente real que contiene, leyendo la etiqueta. Ejemplos:
+  - lata de leche condensada → "leche condensada"
+  - lata de leche evaporada → "leche evaporada"
+  - cartón de leche → "leche"
+  - bote de crema → "crema de leche"
+  - paquete/bolsa de harina → "harina"
+  - bolsa de maíz → "maíz"
+- Nombres simples en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado", "leche condensada").
 - IGNORA platos, vasos, cubiertos, bolsas, mesas, sillas, manos, texto no relacionado con comida.
-- Si ves un empaque con etiqueta legible, conviértelo al ingrediente base visible (ej: harina, salsa de tomate).
-- NO inventes ni asumas ingredientes ocultos/posibles: solo lo que realmente ves.
+- NO inventes ni asumas ingredientes ocultos/posibles: solo lo que realmente ves. Un empaque cerrado o sin etiqueta legible NO cuenta como ingrediente.
 - confidence ≥ 0.7 solo si es indudable; 0.5-0.7 si es probable; NO incluyas dudosos (< 0.5).
 - Máximo 10 ingredientes.
 - Si la imagen no muestra alimentos con suficiente seguridad, devuelve {"ingredients": []}."""

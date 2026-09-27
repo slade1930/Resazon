@@ -584,12 +584,59 @@ STOPWORDS = {
 
 _BRACKET_RE = re.compile(r"\(.*?\)")
 
+# Prefijos de empaque/contenedor: "lata de leche" → "leche", "caja de galletas" → "galletas".
+_CONTAINER_PREFIXES = (
+    "latas de ",
+    "lata de ",
+    "cajas de ",
+    "caja de ",
+    "tarros de ",
+    "tarro de ",
+    "botes de ",
+    "bote de ",
+    "botellas de ",
+    "botella de ",
+    "frasco de ",
+    "frascos de ",
+    "cartones de ",
+    "cartón de ",
+    "carton de ",
+    "envases de ",
+    "envase de ",
+    "paquetes de ",
+    "paquete de ",
+    "bolsas de ",
+    "bolsa de ",
+    "sobres de ",
+    "sobre de ",
+    "tubos de ",
+    "tubo de ",
+    "tetra pak de ",
+    "tetrapak de ",
+)
+
 _SORTED_ALIASES = tuple(sorted(SYNONYMS, key=len, reverse=True))
 
 
 def strip_accents(text: str) -> str:
     normalized = unicodedata.normalize("NFD", text)
     return "".join(c for c in normalized if unicodedata.category(c) != "Mn")
+
+
+def _strip_container_prefix(text: str) -> str:
+    """Quita el prefijo de empaque conservando el ingrediente real."""
+    current = text.strip()
+    changed = True
+    while changed:
+        changed = False
+        for prefix in _CONTAINER_PREFIXES:
+            if current.startswith(prefix):
+                rest = current[len(prefix) :].strip()
+                if rest:
+                    current = rest
+                    changed = True
+                break
+    return current or text
 
 
 def _word_has_alias(alias: str, text: str) -> bool:
@@ -611,6 +658,7 @@ def normalize_ingredient(raw: str) -> str:
     """Lleva un ingrediente a una forma canónica para matching."""
     text = raw.lower().strip()
     text = _BRACKET_RE.sub("", text).strip()
+    text = _strip_container_prefix(text)
     text = re.sub(r"\s+", " ", text)
     if text in STOPWORDS:
         return ""

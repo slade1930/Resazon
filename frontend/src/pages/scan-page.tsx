@@ -285,11 +285,8 @@ export function ScanPage() {
         });
       }
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.muted = true;
-        await videoRef.current.play();
-      }
+      // El <video> solo existe cuando cameraActive es true; el stream se pega
+      // en un efecto posterior al render (ver useEffect de cameraActive).
       setCameraActive(true);
     } catch (e) {
       const err = e as DOMException;
@@ -304,6 +301,24 @@ export function ScanPage() {
       setCameraLoading(false);
     }
   }, [t]);
+
+  useEffect(() => {
+    if (!cameraActive) return;
+    const video = videoRef.current;
+    const stream = streamRef.current;
+    if (!video || !stream) return;
+    video.srcObject = stream;
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise) {
+      playPromise.catch(() => {
+        /* iOS requiere interacción; si falla, el usuario puede tocar Capturar foto */
+      });
+    }
+    return () => {
+      if (video.srcObject === stream) video.srcObject = null;
+    };
+  }, [cameraActive]);
 
   const takePhoto = useCallback(() => {
     const video = videoRef.current;
