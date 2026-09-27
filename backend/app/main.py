@@ -8,8 +8,39 @@ from fastapi.responses import JSONResponse
 from app.api.v1.router import api_v1_router
 from app.core.config import settings
 from app.core.exceptions import AppError
-from app.core.logging import setup_logging
+from app.core.logging import get_logger, setup_logging
 from app.schemas.common import ErrorResponse
+
+logger = get_logger("main")
+
+
+def _ensure_schema() -> None:
+    """Crea las tablas que falten (idempotente). Alembic se usa en desarrollo;
+    en serverless (Vercel) algunas migraciones nunca se aplicaron, así que
+    garantizamos el esquema aquí al arrancar sin tocar tablas existentes."""
+    try:
+        import app.models  # noqa: F401 - registra todos los modelos en Base.metadata
+
+        from sqlalchemy import text
+
+        from app.core.db import engine
+        from app.models.base import Base
+
+    except Exception:  # noqa: BLE001 - nunca impedir el arranque
+        logger.exception("No se pudieron importar los modelos")
+        return
+
+    try:
+        with engine.begin() as conn:
+            conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+    except Exception:  # noqa: BLE001 - la extensión ya existe en la mayoría de DBs
+        logger.exception("No se pudo habilitar la extensión vector (la tablas de IA sí se crearán)")
+
+    try:
+        Base.metadata.create_all(bind=engine, checkfirst=True)
+        logger.info("Esquema verificado/creado (tablas faltantes añadidas)")
+    except Exception:  # noqa: BLE001 - nunca impedir el arranque por un esquema parcial
+        logger.exception("No se pudo verificar el esquema al arrancar")
 
 
 def create_app() -> FastAPI:
@@ -51,6 +82,7 @@ def create_app() -> FastAPI:
         payload = ErrorResponse(code="internal_error", message="Ocurrió un error inesperado")
         return JSONResponse(status_code=500, content=payload.model_dump())
 
+    _ensure_schema()
     return application
 
 
