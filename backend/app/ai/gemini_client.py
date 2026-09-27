@@ -25,6 +25,7 @@ class GeminiResponse:
     input_tokens: int | None = None
     output_tokens: int | None = None
     model_used: str | None = None
+    transcript: str | None = None
 
 
 _RETRIES_PER_MODEL = 2
@@ -184,7 +185,8 @@ class GeminiClient:
             data=normalized_results,
             input_tokens=input_tokens,
             output_tokens=output_tokens,
-            model_used=response.model_version if hasattr(response, 'model_version') else None
+            model_used=response.model_version if hasattr(response, 'model_version') else None,
+            transcript=raw.text or None,
         )
 
     def generate_embeddings(self, texts: list[str], model: str | None = None) -> list[list[float]]:
@@ -262,6 +264,13 @@ def _parse_ingredients_response(raw_text: str) -> IngredientsResponse:
     if not isinstance(data, dict):
         return IngredientsResponse(ingredients=[])
 
+    transcript = ""
+    for key in ("text", "texto", "ocr", "transcript"):
+        value = data.get(key)
+        if isinstance(value, str) and value.strip():
+            transcript = re.sub(r"\s+", " ", value.strip())[:500]
+            break
+
     for key in ("ingredients", "ingredientes", "alimentos", "items", "detected"):
         raw = data.get(key)
         if not isinstance(raw, list):
@@ -279,9 +288,9 @@ def _parse_ingredients_response(raw_text: str) -> IngredientsResponse:
             if name:
                 items.append(DetectedIngredient(name=name, confidence=_coerce_ingredient_confidence(conf)))
         if items:
-            return IngredientsResponse(ingredients=items)
+            return IngredientsResponse(ingredients=items, text=transcript or None)
 
-    return IngredientsResponse(ingredients=[])
+    return IngredientsResponse(ingredients=[], text=transcript or None)
 
 
 def ai_available() -> bool:
@@ -300,21 +309,19 @@ _VISION_PROMPT = """Eres un asistente de cocina panameña. Analiza SOLO los alim
 
 Reglas estrictas:
 - Devuelve EXCLUSIVAMENTE JSON con este esquema exacto (sin texto adicional):
-{"ingredients": [{"name": "string", "confidence": 0.0-1.0}]}
+{"ingredients": [{"name": "string", "confidence": 0.0-1.0}], "text": "string"}
+- "text": EXTRAE (OCR) el texto legible que ves en la imagen (etiquetas, empaques, cartones, latas, frascos, bolsas). Si no hay texto legible, pon "".
+- Identifica el OBJETO y su TIPO específico: usa el texto de la etiqueta para saber QUÉ es el ingrediente. Ejemplos:
+  - LATAS/CARTONES de leche → según la etiqueta: "leche condensada", "leche evaporada", "leche en polvo" o "leche"
+  - "LA LECHERA" → "leche condensada"; "IDEAL" / "leche evaporada" → "leche evaporada"; "KLIM" / leche en polvo → "leche en polvo"
+  - "MAGGI" / consomé de pollo → "caldo de pollo"; bolsa de harina → "harina"; bote de crema → "crema de leche"; bolsa/maíz → "maíz"
 - Detecta solo alimentos reales visibles: arroz, pollo, tomate, plátano, yuca, etc.
-- Identifica el OBJETO y su TIPO específico: si ves un empaque (lata, tarro, caja, tetra pak, bolsa, sobre), di qué es el ingrediente real que contiene, leyendo la etiqueta. Ejemplos:
-  - lata de leche condensada → "leche condensada"
-  - lata de leche evaporada → "leche evaporada"
-  - cartón de leche → "leche"
-  - bote de crema → "crema de leche"
-  - paquete/bolsa de harina → "harina"
-  - bolsa de maíz → "maíz"
 - Nombres simples en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado", "leche condensada").
-- IGNORA platos, vasos, cubiertos, bolsas, mesas, sillas, manos, texto no relacionado con comida.
-- NO inventes ni asumas ingredientes ocultos/posibles: solo lo que realmente ves. Un empaque cerrado o sin etiqueta legible NO cuenta como ingrediente.
+- IGNORA platos, vasos, cubiertos, mesas, sillas, manos y texto NO relacionado con comida (publicidad, eslogans).
+- NO inventes ni asumas ingredientes ocultos/posibles: solo lo que realmente ves. Un empaque cerrado sin etiqueta legible NO cuenta como ingrediente.
 - confidence ≥ 0.7 solo si es indudable; 0.5-0.7 si es probable; NO incluyas dudosos (< 0.5).
 - Máximo 10 ingredientes.
-- Si la imagen no muestra alimentos con suficiente seguridad, devuelve {"ingredients": []}."""
+- Si la imagen no muestra alimentos con suficiente seguridad, devuelve {"ingredients": [], "text": ""}."""
 
 
 def get_vision_prompt() -> str:

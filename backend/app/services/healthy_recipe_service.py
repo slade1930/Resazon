@@ -13,7 +13,7 @@ from app.ai.models import GeneratedRecipe
 from app.ai.prompts.healthy_adaptation import build_healthy_prompt
 from app.ai.response_parser import parse_json_model
 from app.core.config import settings
-from app.core.exceptions import RateLimitExceededError
+from app.core.exceptions import AIResponseError, RateLimitExceededError
 from app.core.logging import get_logger
 from app.models.ai_usage import AIUsageLog, UserDailyLimit
 from app.models.recipe import RecipeType
@@ -41,8 +41,7 @@ class HealthyRecipeService:
 
         prompt = build_healthy_prompt(ingredients, context_text=None)
         provider = gemini_client_provider()
-        response = provider.generate_content_with_usage(prompt, temperature=0.6)
-        generated: GeneratedRecipe = parse_json_model(response.data, GeneratedRecipe)
+        response, generated = self._generate_with_retry(provider, prompt)
 
         included = [ing.name for ing in generated.ingredients]
         nutrition = self.recipe_service.estimator.estimate(
@@ -59,6 +58,19 @@ class HealthyRecipeService:
 
         self._increment_usage(user_id, session_id, response.model_used, response.input_tokens, response.output_tokens)
         return RecipeGenerateResponse(recipe=detail)
+
+    def _generate_with_retry(
+        self, provider, prompt: str, first_temperature: float = 0.6, retry_temperature: float = 0.3
+    ) -> tuple[object, GeneratedRecipe]:
+        """Genera el JSON de receta saludable; si Gemini devuelve JSON malformado,
+        reintenta UNA vez con temperatura baja (salida más determinista)."""
+        attempt = provider.generate_content_with_usage(prompt, temperature=first_temperature)
+        try:
+            return attempt, parse_json_model(attempt.data, GeneratedRecipe)
+        except AIResponseError:
+            logger.info("Respuesta saludable no parseable; reintentando con temperatura 0.3")
+        attempt = provider.generate_content_with_usage(prompt, temperature=retry_temperature)
+        return attempt, parse_json_model(attempt.data, GeneratedRecipe)
 
     # ── Límites diarios y cost tracking ──────────────────────────
     def _check_rate_limit(self, user_id: int | None, session_id: str | None) -> None:

@@ -69,6 +69,7 @@ export interface ScanResponse {
   scan_id: number;
   detected_ingredients: DetectedIngredient[];
   traditional_recipes: RecipeSummary[];
+  transcript?: string | null;
 }
 
 export interface HealthyRecipeDetail {

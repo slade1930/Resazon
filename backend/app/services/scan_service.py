@@ -143,6 +143,7 @@ class ScanService:
                 DetectedIngredientOut(name=d.name, confidence=d.confidence) for d in detected
             ],
             traditional_recipes=search_result.recipes,
+            transcript=vision_response.transcript,
         )
 
     def _compress_image_if_needed(self, image_bytes: bytes) -> bytes:

@@ -213,6 +213,8 @@ const ES: Record<string, string> = {
   "scan.viewRecipe": "Ver receta",
   "scan.rateLimitError": "Has alcanzado el límite diario de análisis. Intenta mañana.",
   "scan.error": "No pudimos analizar la imagen",
+  "scan.transcript": "Texto detectado en la foto",
+  "scan.retryHealthy": "Reintentar versión saludable",
   "scan.permissionDenied": "No se pudo acceder a la cámara. Verifica los permisos.",
   "scan.cameraNotAvailable": "No hay cámara disponible en este dispositivo",
   "conf.high": "alta",
@@ -269,6 +271,7 @@ const ES: Record<string, string> = {
   "err.gemini": "La IA devolvió una respuesta no procesable.",
   "err.rag": "Hubo un error al consultar el recetario.",
   "err.aiDisabled": "La IA está desactivada: define GEMINI_AI_ENABLED=true en backend/.env.",
+  "err.database": "No pudimos guardar la información. Inténtalo de nuevo.",
   "err.internal": "Ocurrió un error inesperado.",
 };
 
@@ -457,6 +460,8 @@ const EN: Record<string, string> = {
   "scan.viewRecipe": "View recipe",
   "scan.rateLimitError": "Daily analysis limit reached. Try again tomorrow.",
   "scan.error": "Couldn't analyze the image",
+  "scan.transcript": "Text detected in the photo",
+  "scan.retryHealthy": "Retry healthy version",
   "scan.permissionDenied": "Could not access camera. Check permissions.",
   "scan.cameraNotAvailable": "No camera available on this device",
   "conf.high": "high",
@@ -509,6 +514,7 @@ const EN: Record<string, string> = {
   "err.gemini": "The AI returned an unusable response.",
   "err.rag": "Something went wrong querying the recipe book.",
   "err.aiDisabled": "AI is disabled: set GEMINI_AI_ENABLED=true in backend/.env.",
+  "err.database": "We couldn't save the information. Please try again.",
   "err.internal": "An unexpected error occurred.",
 };
 
@@ -697,6 +703,8 @@ const FR: Record<string, string> = {
   "scan.viewRecipe": "Voir la recette",
   "scan.rateLimitError": "Limite quotidienne d'analyses atteinte. Réessayez demain.",
   "scan.error": "Impossible d'analyser l'image",
+  "scan.transcript": "Texte détecté sur la photo",
+  "scan.retryHealthy": "Réessayer la version saine",
   "scan.permissionDenied": "Impossible d'accéder à la caméra. Vérifiez les permissions.",
   "scan.cameraNotAvailable": "Aucune caméra disponible sur cet appareil",
   "conf.high": "haute",
@@ -749,6 +757,7 @@ const FR: Record<string, string> = {
   "err.gemini": "L'IA a renvoyé une réponse inutilisable.",
   "err.rag": "Une erreur est survenue en interrogeant le recueil.",
   "err.aiDisabled": "L'IA est désactivée : définissez GEMINI_AI_ENABLED=true dans backend/.env.",
+  "err.database": "Impossible d'enregistrer l'information. Réessayez.",
   "err.internal": "Une erreur inattendue est survenue.",
 };
 
@@ -832,6 +841,7 @@ const ERROR_KEYS: Record<string, string> = {
   ai_response_error: "err.gemini",
   rag_error: "err.rag",
   ai_not_configured: "err.aiDisabled",
+  database_error: "err.database",
   internal_error: "err.internal",
 };
 

@@ -7,6 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/shared/reveal";
 import { apiErrorMessage, useI18n } from "@/lib/i18n";
 import { api } from "@/lib/api";
+import { recipePhotoUrl } from "@/lib/recipe-photos";
+import { coverStyle, recipePalette } from "@/lib/recipe-visuals";
 import type {
   DetectedIngredient,
   RecipeSummary,
@@ -35,6 +37,7 @@ type RecipeType = "traditional" | "healthy";
 interface ScanResults {
   scanId: number;
   detectedIngredients: DetectedIngredient[];
+  transcript?: string | null;
   recipeType: RecipeType;
   traditionalRecipes?: RecipeSummary[];
   healthyRecipe?: RecipeDetail;
@@ -102,11 +105,28 @@ function formatPercent(n: number): string {
 }
 
 function TraditionalRecipeCard({ recipe, t }: { recipe: RecipeSummary; t: (k: string, vars?: Record<string, string | number>) => string }) {
+  const { emoji } = recipePalette(recipe.name);
+  const photo = recipePhotoUrl(recipe.name);
   return (
     <Link key={recipe.id ?? recipe.name} to={`/recetas/${recipe.id}`}>
-      <Card className="h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lift">
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
-          <div className="absolute inset-0 flex items-center justify-center text-4xl">🍲</div>
+      <Card className="group h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lift">
+        <div
+          className="relative aspect-[16/10] w-full overflow-hidden"
+          style={photo ? undefined : coverStyle(recipe.name)}
+        >
+          {photo && (
+            <img
+              src={photo}
+              alt={recipe.name}
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
+          <div className="bg-noise absolute inset-0" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+          <span className="pointer-events-none absolute -right-4 -bottom-6 select-none text-[8rem] leading-none opacity-25 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
+            {emoji}
+          </span>
         </div>
         <CardContent className="space-y-2 p-4">
           <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
@@ -401,6 +421,7 @@ export function ScanPage() {
       const base: ScanResults = {
         scanId: res.scan_id,
         detectedIngredients: detected,
+        transcript: res.transcript,
         recipeType,
         traditionalRecipes: res.traditional_recipes,
         healthyRecipe: undefined,
@@ -676,6 +697,11 @@ export function ScanPage() {
               ) : (
                 <p className="text-sm text-muted-foreground">{t("scan.failed")}</p>
               )}
+              {results.transcript ? (
+                <p className="mt-3 rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+                  <span className="font-semibold text-foreground">{t("scan.transcript")}:</span> {results.transcript}
+                </p>
+              ) : null}
             </div>
 
             <div className="flex gap-2">

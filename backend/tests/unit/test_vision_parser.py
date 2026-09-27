@@ -59,3 +59,22 @@ def test_respuesta_inutilizable_devuelve_vacio(inutilizable):
 
 def test_strip_code_fence():
     assert _strip_code_fence("```json\n{\"a\": 1}\n```") == '{"a": 1}'
+
+
+def test_extrae_texto_ocr():
+    result = _parse_ingredients_response(
+        '{"ingredients": [{"name": "leche condensada", "confidence": 0.95}], "text": "LA LECHERA Leche Condensada"}'
+    )
+    assert result.text == "LA LECHERA Leche Condensada"
+
+
+def test_extrae_texto_con_claves_espanol():
+    result = _parse_ingredients_response(
+        '{"ingredientes": [{"nombre": "harina"}], "texto": "Harina PAN 1kg"}'
+    )
+    assert result.text == "Harina PAN 1kg"
+
+
+def test_sin_texto_devuelve_none():
+    result = _parse_ingredients_response('{"ingredients": [{"name": "arroz", "confidence": 0.9}]}')
+    assert result.text is None

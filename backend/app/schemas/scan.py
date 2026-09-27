@@ -14,3 +14,4 @@ class ScanResponse(BaseModel):
     scan_id: int
     detected_ingredients: list[DetectedIngredientOut]
     traditional_recipes: list[RecipeSummary] = Field(default=list)
+    transcript: str | None = None

@@ -10,3 +10,4 @@ class DetectedIngredient(BaseModel):
 
 class IngredientsResponse(BaseModel):
     ingredients: list[DetectedIngredient]
+    text: str | None = None
