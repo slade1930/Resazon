@@ -118,6 +118,7 @@ def build_generated_detail(
         source=source,
         nutrition=nutrition,
         nestle_products=[],
+        health_notes=generated.tips or None,
     )
 
 

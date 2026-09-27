@@ -83,6 +83,7 @@ class ScanService:
             status="success",
         )
         db.add(usage_log)
+        db.commit()
 
     def detect(self, file: UploadFile, db: Session, user_id: int | None = None, session_id: str | None = None) -> ScanResponse:
         # Verificar rate limit

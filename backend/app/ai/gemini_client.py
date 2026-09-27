@@ -12,8 +12,6 @@ from google.genai import types
 from app.core.config import settings
 from app.core.exceptions import AINotConfiguredError, UpstreamAIError
 from app.vision.schemas import IngredientsResponse
-from app.vision.ingredient_normalizer import normalize_ingredient
-from app.schemas.scan import DetectedIngredientOut
 
 T = TypeVar("T")
 
@@ -228,18 +226,19 @@ def get_gemini_client() -> GeminiClient:
 gemini_client_provider = get_gemini_client
 
 
-_VISION_PROMPT = """Eres un asistente de cocina panameña. Analiza la imagen y detecta los alimentos/ingredientes visibles.
+_VISION_PROMPT = """Eres un asistente de cocina panameña. Analiza SOLO los alimentos que son VISIBLES en la fotografía.
 
-Reglas:
-- Devuelve SOLO JSON con el siguiente esquema exacto:
+Reglas estrictas:
+- Devuelve EXCLUSIVAMENTE JSON con este esquema exacto (sin texto adicional):
 {"ingredients": [{"name": "string", "confidence": 0.0-1.0}]}
-- Nombres en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado").
-- Si ves un paquete de harina, polvo de hornear, pasta de tomate, salsa, etc., detecta el ingrediente principal (harina, salsa de tomate, etc.).
-- Si ves un empaque con etiqueta legible, lee el nombre del producto y conviértelo al ingrediente base.
-- NO inventes ingredientes que no estén en la imagen.
-- confidence ≥ 0.6 para ingredientes seguros; 0.4-0.6 para dudosos; < 0.4 NO incluir.
-- Máximo 12 ingredientes.
-- Si la imagen no contiene alimentos claros, devuelve {"ingredients": []}."""
+- Detecta solo alimentos reales visibles: arroz, pollo, tomate, plátano, yuca, etc.
+- Nombres simples en español de Panamá, en singular (ej: "ají", "arroz", "yuca", "plátano", "pescado").
+- IGNORA platos, vasos, cubiertos, bolsas, mesas, sillas, manos, texto no relacionado con comida.
+- Si ves un empaque con etiqueta legible, conviértelo al ingrediente base visible (ej: harina, salsa de tomate).
+- NO inventes ni asumas ingredientes ocultos/posibles: solo lo que realmente ves.
+- confidence ≥ 0.7 solo si es indudable; 0.5-0.7 si es probable; NO incluyas dudosos (< 0.5).
+- Máximo 10 ingredientes.
+- Si la imagen no muestra alimentos con suficiente seguridad, devuelve {"ingredients": []}."""
 
 
 def get_vision_prompt() -> str:

@@ -1,6 +1,6 @@
 """Endpoints de generación: /recipes/generate y /recipes/healthy."""
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Header
 from sqlalchemy.orm import Session
 
 from app.api.v1.deps import db_session
@@ -28,6 +28,9 @@ def generate_recipe(
 def healthy_recipe(
     payload: RecipeGenerateRequest,
     db: Session = Depends(db_session),
+    x_session_id: str | None = Header(default=None, alias="X-Session-ID"),
 ) -> Envelope[RecipeGenerateResponse]:
-    result = HealthyRecipeService(db).generate_healthy(payload.ingredients)
+    result = HealthyRecipeService(db).generate_healthy(
+        payload.ingredients, user_id=None, session_id=x_session_id
+    )
     return Envelope(data=result)

@@ -34,25 +34,29 @@ class RecipeService:
         self.estimator = NutrientEstimator()
 
     # ── Plato panameño (tradicional) ─────────────────────────────
-    def search_traditional(self, ingredients: list[str], lang: str | None = None) -> RecipeSearchResponse:
-        query = self.retriever.build_query(ingredients, mode="traditional")
-        retrieved = self.retriever.search(query, raw_terms=ingredients)
+    def search_traditional(
+        self,
+        ingredients: list[str],
+        lang: str | None = None,
+        max_results: int = 10,
+    ) -> RecipeSearchResponse:
+        """Busca recetas tradicionales SIN llamar a Gemini.
 
-        if not retrieved:
-            logger.info("RAG sin resultados para: %s — fallback a listado", ingredients)
-            return RecipeSearchResponse(recipes=[], total=0)
-
-        recipe_ids = list({r.recipe_id for r in retrieved})
-        recipes = self.recipes.get_by_ids(recipe_ids)
-
+        Cruza los ingredientes detectados contra todas las recetas existentes
+        en la base de datos (Python + PostgreSQL) y calcula el % de
+        compatibilidad localmente. Cero embeddings, cero llamadas a IA.
+        """
+        recipes, _ = self.recipes.list_paginated(1, 100)
         summaries: list[RecipeSummary] = []
         for recipe in recipes:
             recipe_ingredients = [link.ingredient.name for link in recipe.recipe_ingredients]
             result = match(ingredients, recipe_ingredients)
+            if result.match_percentage <= 0:
+                continue
             summaries.append(build_summary(recipe, result, lang=lang))
 
         ranked = rank(summaries)
-        return RecipeSearchResponse(recipes=ranked, total=len(ranked))
+        return RecipeSearchResponse(recipes=ranked[:max_results], total=len(ranked))
 
     # ── Detalle ──────────────────────────────────────────────────
     def get_detail(self, recipe_id: int, lang: str | None = None) -> RecipeDetail:

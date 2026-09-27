@@ -17,6 +17,21 @@ function currentLang(): string {
   return stored === "en" || stored === "fr" ? stored : "es";
 }
 
+const SESSION_KEY = "rezazon.session";
+
+function sessionId(): string {
+  if (typeof window === "undefined") return "";
+  let id = localStorage.getItem(SESSION_KEY);
+  if (!id) {
+    id =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `s-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    localStorage.setItem(SESSION_KEY, id);
+  }
+  return id;
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = { ...(init?.headers as Record<string, string>) };
   if (init?.body && typeof init.body === "string") {
@@ -68,15 +83,15 @@ export const api = {
       { method: "POST", body: JSON.stringify({ ingredients, dietary_goal: dietaryGoal }) },
     ),
 
-  healthy: (ingredients: string[]) =>
+  healthy: (ingredients: string[], scanId?: number | null) =>
     request<GenerateResponse>(
       "/recipes/healthy",
-      { method: "POST", body: JSON.stringify({ ingredients }) },
+      { method: "POST", headers: { "X-Session-ID": sessionId() }, body: JSON.stringify({ ingredients, scan_id: scanId }) },
     ),
 
   scan: (file: File) => {
     const form = new FormData();
     form.append("file", file);
-    return request<ScanResponse>("/scan", { method: "POST", body: form });
+    return request<ScanResponse>("/scan", { method: "POST", headers: { "X-Session-ID": sessionId() }, body: form });
   },
 };

@@ -53,6 +53,7 @@ class RecipeDetail(BaseModel):
     description: str | None = None
     nutrition: NutritionFacts | None = None
     nestle_products: list[str] = Field(default=list)
+    health_notes: list[str] | None = None
 
 
 class RecipeGenerateRequest(BaseModel):
